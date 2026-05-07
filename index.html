@@ -1,0 +1,1954 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>R&B Modas – Vista sua Paixão pelo Futebol</title>
+  <meta name="description" content="R&B Modas – A melhor loja de camisas de times de futebol. Encontre camisas oficiais e retrô dos principais times do mundo." />
+  <meta name="keywords" content="camisas futebol, camisas times, futebol, camisas oficiais, R&B Modas" />
+  <meta property="og:title" content="R&B Modas – Vista sua Paixão pelo Futebol" />
+  <meta property="og:description" content="Camisas dos melhores times do Brasil e do mundo" />
+  
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #D0021B;
+      --red-dark: #A0011A;
+      --red-light: #FF1A35;
+      --black: #0A0A0A;
+      --gray-dark: #1A1A1A;
+      --gray-mid: #2E2E2E;
+      --gray: #888;
+      --gray-light: #C8C8C8;
+      --white: #F8F8F8;
+      --pure-white: #FFFFFF;
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body: 'Barlow', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+
+    /* ══════════════════════════════════════════
+       NAVBAR
+    ══════════════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 70px;
+      background: rgba(10,10,10,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(208,2,27,0.25);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 30px rgba(208,2,27,0.15); }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--red); }
+
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      text-decoration: none;
+      transition: color 0.25s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: var(--red);
+      transition: width 0.25s;
+    }
+    .nav-links a:hover { color: var(--pure-white); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-actions { display: flex; align-items: center; gap: 1rem; }
+
+    .cart-btn {
+      position: relative;
+      background: none; border: none; cursor: pointer;
+      color: var(--white); font-size: 1.3rem; padding: 6px;
+      transition: color 0.2s;
+    }
+    .cart-btn:hover { color: var(--red); }
+    .cart-count {
+      position: absolute; top: -2px; right: -4px;
+      background: var(--red); color: white;
+      font-size: 0.65rem; font-weight: 700;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); transition: all 0.3s; }
+
+    /* ══════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 0 5%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 75% 50%, rgba(208,2,27,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(208,2,27,0.06) 0%, transparent 60%),
+        var(--black);
+    }
+
+    .hero-grid-lines {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 700px; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(208,2,27,0.15);
+      border: 1px solid rgba(208,2,27,0.4);
+      border-radius: 2px;
+      padding: 6px 14px;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red-light);
+      margin-bottom: 1.5rem;
+      animation: fadeDown 0.8s ease both;
+    }
+    .hero-badge::before { content: '⚽'; font-size: 0.9rem; }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 0.92;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      color: var(--pure-white);
+      animation: fadeUp 0.9s ease 0.15s both;
+    }
+    .hero-title .accent { color: var(--red); display: block; }
+    .hero-title .stroke {
+      -webkit-text-stroke: 2px var(--pure-white);
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--gray-light);
+      margin-top: 1.5rem;
+      max-width: 480px;
+      line-height: 1.7;
+      animation: fadeUp 0.9s ease 0.3s both;
+    }
+
+    .hero-actions {
+      display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap;
+      animation: fadeUp 0.9s ease 0.45s both;
+    }
+
+    .btn-primary {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 14px 36px;
+      background: var(--red);
+      color: var(--pure-white);
+      border: 2px solid var(--red);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
+    }
+    .btn-primary:hover {
+      background: var(--red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(208,2,27,0.5);
+    }
+
+    .btn-outline {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 14px 36px;
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: border-color 0.25s, color 0.25s, transform 0.2s;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
+    }
+    .btn-outline:hover {
+      border-color: var(--red);
+      color: var(--red);
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 4rem;
+      animation: fadeUp 0.9s ease 0.6s both;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 2.5rem;
+      color: var(--red);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    .hero-logo {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: clamp(200px, 25vw, 350px);
+      height: auto;
+      opacity: 1;
+      user-select: none;
+      z-index: 1;
+    }
+    .hero-logo img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    /* ══════════════════════════════════════════
+       PROMO BANNER STRIP
+    ══════════════════════════════════════════ */
+    .promo-strip {
+      background: var(--red);
+      padding: 12px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .promo-track {
+      display: inline-flex; gap: 4rem;
+      animation: marquee 20s linear infinite;
+    }
+    .promo-track span {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pure-white);
+    }
+    .promo-track .dot { color: rgba(255,255,255,0.5); }
+
+    /* ══════════════════════════════════════════
+       SECTION COMMON
+    ══════════════════════════════════════════ */
+    section { padding: 6rem 5%; }
+
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+    .section-tag::before { content: ''; display: block; width: 30px; height: 2px; background: var(--red); }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+      text-transform: uppercase;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+    }
+
+    /* ══════════════════════════════════════════
+       FEATURED PRODUCTS
+    ══════════════════════════════════════════ */
+    #destaques { background: var(--gray-dark); }
+
+    .featured-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .view-all {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(208,2,27,0.4);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+    .view-all:hover { border-color: var(--red); }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5px;
+    }
+
+    .product-card {
+      position: relative;
+      background: var(--gray-mid);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .product-card:hover { transform: translateY(-4px); z-index: 2; }
+
+    .product-img-wrap {
+      position: relative;
+      aspect-ratio: 3/4;
+      background: var(--black);
+      overflow: hidden;
+    }
+    .product-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-img-wrap img { transform: scale(1.06); }
+
+    .product-badge {
+      position: absolute; top: 12px; left: 12px;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      z-index: 2;
+    }
+    .badge-new { background: var(--red); color: white; }
+    .badge-sale { background: var(--pure-white); color: var(--black); }
+    .badge-hot { background: var(--black); color: var(--red); border: 1px solid var(--red); }
+
+    .product-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex; align-items: flex-end; justify-content: center;
+      padding-bottom: 20px;
+    }
+    .product-card:hover .product-overlay { opacity: 1; }
+    .overlay-btn {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 10px 28px;
+      background: var(--red);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transform: translateY(10px);
+      transition: transform 0.3s, background 0.2s;
+    }
+    .product-card:hover .overlay-btn { transform: translateY(0); }
+    .overlay-btn:hover { background: var(--red-dark); }
+
+    .product-info { padding: 16px 16px 20px; }
+    .product-team {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 4px;
+    }
+    .product-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .product-price-row { display: flex; align-items: center; justify-content: space-between; }
+    .price {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--white);
+    }
+    .price-old {
+      font-size: 0.85rem;
+      color: var(--gray);
+      text-decoration: line-through;
+      margin-right: 6px;
+    }
+    .price-new { color: var(--red-light); }
+    .add-cart-sm {
+      background: var(--red);
+      border: none; color: white;
+      width: 34px; height: 34px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .add-cart-sm:hover { background: var(--red-dark); transform: scale(1.1); }
+
+    /* ══════════════════════════════════════════
+       CATALOG / FILTERS
+    ══════════════════════════════════════════ */
+    #catalogo { background: var(--black); }
+
+    .catalog-layout { display: grid; grid-template-columns: 260px 1fr; gap: 3rem; align-items: start; }
+
+    .filters-sidebar {
+      background: var(--gray-dark);
+      padding: 24px;
+      position: sticky; top: 90px;
+    }
+    .filter-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--red);
+    }
+    .filter-group { margin-bottom: 1.8rem; }
+    .filter-group-label {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 10px;
+    }
+    .filter-options { display: flex; flex-direction: column; gap: 8px; }
+    .filter-opt {
+      display: flex; align-items: center; gap: 10px;
+      cursor: pointer;
+    }
+    .filter-opt input[type=checkbox] { accent-color: var(--red); width: 15px; height: 15px; }
+    .filter-opt span { font-size: 0.9rem; color: var(--gray-light); transition: color 0.2s; }
+    .filter-opt:hover span { color: var(--white); }
+
+    .size-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .size-chip {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border: 1px solid var(--gray-mid);
+      color: var(--gray-light);
+      cursor: pointer;
+      transition: all 0.2s;
+      background: none;
+    }
+    .size-chip:hover, .size-chip.active {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .price-range-row { display: flex; gap: 10px; align-items: center; }
+    .price-input {
+      flex: 1;
+      background: var(--gray-mid);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      padding: 8px 10px;
+      outline: none;
+      width: 100%;
+    }
+    .price-input:focus { border-color: var(--red); }
+
+    .filter-apply {
+      width: 100%;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 12px;
+      background: var(--red);
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.2s;
+    }
+    .filter-apply:hover { background: var(--red-dark); }
+
+    .catalog-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .catalog-count { font-size: 0.9rem; color: var(--gray); }
+    .sort-select {
+      background: var(--gray-dark);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      padding: 8px 14px;
+      outline: none;
+      cursor: pointer;
+    }
+    .sort-select:focus { border-color: var(--red); }
+
+    /* ══════════════════════════════════════════
+       PRODUCT DETAIL MODAL
+    ══════════════════════════════════════════ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.85);
+      display: none; align-items: center; justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(6px);
+    }
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      background: var(--gray-dark);
+      max-width: 900px; width: 100%;
+      max-height: 90vh; overflow-y: auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      position: relative;
+      animation: modalIn 0.35s ease;
+    }
+
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      background: none; border: none; color: var(--gray-light);
+      font-size: 1.4rem; cursor: pointer; z-index: 2;
+      transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--red); }
+
+    .modal-img {
+      background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      min-height: 400px;
+    }
+    .modal-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .modal-info { padding: 40px 36px; }
+    .modal-team {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+    .modal-name {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 2rem;
+      text-transform: uppercase;
+      color: var(--white);
+      margin: 8px 0 6px;
+      line-height: 1.05;
+    }
+    .modal-price {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 2.2rem;
+      color: var(--red-light);
+      margin-bottom: 20px;
+    }
+    .modal-desc {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--gray-light);
+      margin-bottom: 24px;
+    }
+    .size-label {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 10px;
+    }
+    .size-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .size-btn {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 8px 16px;
+      border: 2px solid var(--gray-mid);
+      color: var(--gray-light);
+      background: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .size-btn:hover { border-color: var(--red); color: var(--white); }
+    .size-btn.sel { border-color: var(--red); color: var(--red); background: rgba(208,2,27,0.08); }
+
+    .add-to-cart {
+      width: 100%;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 16px;
+      background: var(--red);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .add-to-cart:hover { background: var(--red-dark); transform: translateY(-2px); }
+
+    .modal-features { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+    .feat {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; color: var(--gray-light);
+    }
+    .feat-icon { color: var(--red); font-size: 1rem; }
+
+    /* ══════════════════════════════════════════
+       CART DRAWER
+    ══════════════════════════════════════════ */
+    .cart-overlay {
+      position: fixed; inset: 0; z-index: 9998;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      backdrop-filter: blur(4px);
+    }
+    .cart-overlay.active { display: block; }
+
+    .cart-drawer {
+      position: fixed; right: 0; top: 0; bottom: 0;
+      width: min(420px, 100vw);
+      background: var(--gray-dark);
+      z-index: 9999;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      display: flex; flex-direction: column;
+    }
+    .cart-drawer.open { transform: translateX(0); }
+
+    .cart-head {
+      padding: 24px 24px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .cart-head-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .cart-close { background: none; border: none; color: var(--gray-light); font-size: 1.3rem; cursor: pointer; }
+    .cart-close:hover { color: var(--red); }
+
+    .cart-items { flex: 1; overflow-y: auto; padding: 20px 24px; }
+    .cart-empty {
+      text-align: center; padding: 60px 20px;
+      color: var(--gray);
+    }
+    .cart-empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .cart-empty p { font-size: 0.9rem; }
+
+    .cart-item {
+      display: grid; grid-template-columns: 70px 1fr auto;
+      gap: 14px; align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .cart-item-img { width: 70px; height: 70px; object-fit: cover; background: var(--black); }
+    .cart-item-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--white);
+    }
+    .cart-item-meta { font-size: 0.75rem; color: var(--gray); margin-top: 2px; }
+    .cart-item-price {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--red-light);
+      margin-top: 6px;
+    }
+    .cart-item-remove { background: none; border: none; color: var(--gray); cursor: pointer; font-size: 1rem; padding: 4px; }
+    .cart-item-remove:hover { color: var(--red); }
+
+    .cart-footer {
+      padding: 20px 24px 28px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .cart-total-row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 16px;
+    }
+    .cart-total-label {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+    }
+    .cart-total-val {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: var(--white);
+    }
+    .checkout-btn {
+      width: 100%;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 16px;
+      background: var(--red);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .checkout-btn:hover { background: var(--red-dark); }
+
+    /* ══════════════════════════════════════════
+       LEAGUES SECTION
+    ══════════════════════════════════════════ */
+    #ligas { background: var(--gray-dark); }
+
+    .leagues-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1px;
+      margin-top: 3rem;
+    }
+    .league-card {
+      background: var(--black);
+      padding: 30px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.25s;
+      border: 1px solid transparent;
+    }
+    .league-card:hover {
+      background: rgba(208,2,27,0.08);
+      border-color: rgba(208,2,27,0.3);
+    }
+    .league-icon { font-size: 2.5rem; margin-bottom: 10px; }
+    .league-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+    }
+    .league-count { font-size: 0.7rem; color: var(--gray); margin-top: 4px; }
+
+    /* ══════════════════════════════════════════
+       REVIEWS
+    ══════════════════════════════════════════ */
+    #avaliacoes { background: var(--black); }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2px;
+      margin-top: 3rem;
+    }
+    .review-card {
+      background: var(--gray-dark);
+      padding: 28px;
+      position: relative;
+    }
+    .review-quote {
+      font-size: 3rem;
+      color: var(--red);
+      font-family: Georgia, serif;
+      line-height: 1;
+      margin-bottom: 12px;
+      opacity: 0.5;
+    }
+    .review-text {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--gray-light);
+      margin-bottom: 20px;
+    }
+    .review-author { display: flex; align-items: center; gap: 12px; }
+    .review-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--gray-mid);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--red);
+      border: 2px solid rgba(208,2,27,0.3);
+    }
+    .review-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--white);
+    }
+    .review-stars { color: var(--red); font-size: 0.8rem; }
+
+    /* ══════════════════════════════════════════
+       ABOUT
+    ══════════════════════════════════════════ */
+    #sobre {
+      background: var(--gray-dark);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+    }
+    .about-visual {
+      background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      min-height: 500px;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-bg-text {
+      position: absolute;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 20vw;
+      color: rgba(208,2,27,0.05);
+      text-transform: uppercase;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.02em;
+    }
+    .about-icon-big { 
+      width: 15rem; 
+      height: 15rem; 
+      z-index: 1; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+    }
+    .about-icon-big img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    .about-content { padding: 6rem 5%; }
+    .about-text {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--gray-light);
+      margin-top: 1.5rem;
+    }
+    .value-list { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 12px; }
+    .value-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 0.9rem; color: var(--gray-light);
+    }
+    .value-list li::before {
+      content: '—';
+      color: var(--red);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════════════════
+       CONTACT
+    ══════════════════════════════════════════ */
+    #contato { background: var(--black); }
+
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+
+    .contact-info-block { display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem; }
+    .contact-item { display: flex; align-items: flex-start; gap: 16px; }
+    .contact-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: rgba(208,2,27,0.12);
+      border: 1px solid rgba(208,2,27,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .contact-label {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .contact-value { font-size: 0.95rem; color: var(--white); margin-top: 4px; }
+
+    .social-links { display: flex; gap: 12px; margin-top: 2rem; }
+    .social-btn {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--gray-light);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+      transition: all 0.25s;
+    }
+    .social-btn:hover {
+      border-color: var(--red);
+      color: var(--white);
+      background: rgba(208,2,27,0.08);
+    }
+
+    .contact-form { display: flex; flex-direction: column; gap: 14px; margin-top: 2rem; }
+    .form-field label {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 6px;
+    }
+    .form-field input, .form-field textarea, .form-field select {
+      width: 100%;
+      background: var(--gray-dark);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 2px solid rgba(255,255,255,0.15);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.25s;
+      resize: vertical;
+    }
+    .form-field input:focus, .form-field textarea:focus {
+      border-bottom-color: var(--red);
+    }
+    .form-submit {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 15px;
+      background: var(--red);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .form-submit:hover { background: var(--red-dark); }
+
+    /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
+    footer {
+      background: var(--gray-dark);
+      border-top: 1px solid rgba(208,2,27,0.2);
+      padding: 4rem 5% 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand-name {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 2rem;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .footer-brand-name span { color: var(--red); }
+    .footer-desc { font-size: 0.85rem; line-height: 1.7; color: var(--gray); max-width: 260px; }
+
+    .footer-col-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-copy { font-size: 0.8rem; color: var(--gray); }
+    .footer-pay { display: flex; gap: 8px; align-items: center; }
+    .pay-badge {
+      background: var(--gray-mid);
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--gray-light);
+    }
+
+    /* ══════════════════════════════════════════
+       CHECKOUT MODAL
+    ══════════════════════════════════════════ */
+    .checkout-modal {
+      position: fixed; inset: 0; z-index: 10000;
+      background: rgba(0,0,0,0.9);
+      display: none; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .checkout-modal.active { display: flex; }
+    .checkout-box {
+      background: var(--gray-dark);
+      width: 100%; max-width: 600px;
+      max-height: 90vh; overflow-y: auto;
+      padding: 40px;
+      animation: modalIn 0.35s ease;
+      position: relative;
+    }
+    .checkout-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 2rem;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      color: var(--white);
+    }
+    .checkout-section {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .checkout-section-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+    .payment-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .pay-opt {
+      border: 2px solid rgba(255,255,255,0.1);
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--gray-light);
+      transition: all 0.2s;
+    }
+    .pay-opt.sel { border-color: var(--red); color: var(--red); }
+    .pay-opt:hover { border-color: rgba(208,2,27,0.5); }
+    .pay-opt-icon { font-size: 1.5rem; margin-bottom: 4px; }
+
+    /* ══════════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+        @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.96) translateY(12px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .catalog-layout { grid-template-columns: 1fr; }
+      .filters-sidebar { position: static; }
+      .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+      #sobre { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-stats { gap: 1.5rem; }
+      .modal { grid-template-columns: 1fr; }
+      .modal-img { min-height: 240px; }
+      footer { padding: 3rem 5% 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .payment-opts { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      nav { padding: 0 4%; }
+      section { padding: 4rem 4%; }
+      .hero-logo { display: none; }
+      .hero-stats { flex-wrap: wrap; gap: 1rem; }
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 998;
+      background: var(--black);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 2rem;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--red); }
+
+    /* Notification toast */
+    .toast {
+      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+      background: var(--red);
+      color: white;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      padding: 12px 28px;
+      z-index: 99999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast">✓ Adicionado ao carrinho!</div>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">R<span>&</span>B <span style="color:var(--white)">Modas</span></a>
+  <ul class="nav-links">
+    <li><a href="#destaques">Destaques</a></li>
+    <li><a href="#catalogo">Catálogo</a></li>
+    <li><a href="#ligas">Ligas</a></li>
+    <li><a href="#avaliacoes">Avaliações</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="cart-btn" onclick="openCart()" aria-label="Carrinho">
+      🛒 <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── MOBILE MENU ── -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#destaques" onclick="toggleMenu()">Destaques</a>
+  <a href="#catalogo" onclick="toggleMenu()">Catálogo</a>
+  <a href="#ligas" onclick="toggleMenu()">Ligas</a>
+  <a href="#avaliacoes" onclick="toggleMenu()">Avaliações</a>
+  <a href="#sobre" onclick="toggleMenu()">Sobre</a>
+  <a href="#contato" onclick="toggleMenu()">Contato</a>
+</div>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-logo">
+    <img src="logo 2.png" alt="R&B Modas Logo">
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">Nova Coleção 2026</div>
+    <h1 class="hero-title">
+      Vista sua<br>
+      <span class="accent">Paixão</span>
+      <span class="stroke">pelo Futebol</span>
+    </h1>
+    <p class="hero-sub">Camisas originais dos melhores times do Brasil e do mundo. Qualidade premium, entrega rápida e o estilo que você merece.</p>
+    <div class="hero-actions">
+      <a href="#catalogo" class="btn-primary">🛍 Comprar Agora</a>
+      <a href="#destaques" class="btn-outline">Ver Destaques</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Modelos</div></div>
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Times</div></div>
+      <div class="stat"><div class="stat-num">10k+</div><div class="stat-label">Clientes</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROMO STRIP ── -->
+<div class="promo-strip">
+  <div class="promo-track">
+    <span>⚽ Frete Grátis acima de R$ 250</span>
+    <span class="dot">•</span>
+    <span>🔥 Lançamento: Coleção 2026</span>
+    <span class="dot">•</span>
+    <span>💳 Parcelamos em até 12x</span>
+    <span class="dot">•</span>
+    <span>📦 Entrega nas regiões de Recife</span>
+    <span class="dot">•</span>
+    <span>⚽ Frete Grátis acima de R$ 250</span>
+    <span class="dot">•</span>
+    <span>🔥 Lançamento: Coleção 2026</span>
+    <span class="dot">•</span>
+    <span>💳 Parcelamos em até 12x</span>
+    <span class="dot">•</span>
+    <span>📦 Entrega para todo o Brasil</span>
+  </div>
+</div>
+
+<!-- ══════════ DESTAQUES ══════════ -->
+<section id="destaques">
+  <div class="featured-header">
+    <div>
+      <div class="section-tag">Em Destaque</div>
+      <h2 class="section-title">Mais Vendidos</h2>
+    </div>
+    <a href="#catalogo" class="view-all">Ver Catálogo Completo →</a>
+  </div>
+  <div class="products-grid" id="featuredGrid"></div>
+</section>
+
+<!-- ══════════ CATÁLOGO ══════════ -->
+<section id="catalogo">
+  <div class="section-tag">Catálogo</div>
+  <h2 class="section-title">Todas as Camisas</h2>
+  <br><br>
+  <div class="catalog-layout">
+    <aside class="filters-sidebar">
+      <div class="filter-title">🎯 Filtros</div>
+
+      <div class="filter-group">
+        <div class="filter-group-label">Liga</div>
+        <div class="filter-options">
+          <label class="filter-opt"><input type="checkbox" checked> <span>Brasileirão</span></label>
+          <label class="filter-opt"><input type="checkbox"> <span>Premier League</span></label>
+          <label class="filter-opt"><input type="checkbox"> <span>La Liga</span></label>
+          <label class="filter-opt"><input type="checkbox"> <span>Champions League</span></label>
+          <label class="filter-opt"><input type="checkbox"> <span>Bundesliga</span></label>
+          <label class="filter-opt"><input type="checkbox"> <span>Serie A</span></label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-group-label">Tamanho</div>
+        <div class="size-chips">
+          <button class="size-chip active" onclick="toggleSize(this)">PP</button>
+          <button class="size-chip" onclick="toggleSize(this)">P</button>
+          <button class="size-chip" onclick="toggleSize(this)">M</button>
+          <button class="size-chip active" onclick="toggleSize(this)">G</button>
+          <button class="size-chip" onclick="toggleSize(this)">GG</button>
+          <button class="size-chip" onclick="toggleSize(this)">XGG</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-group-label">Faixa de Preço (R$)</div>
+        <div class="price-range-row">
+          <input type="number" class="price-input" placeholder="Min" value="50">
+          <span style="color:var(--gray)">—</span>
+          <input type="number" class="price-input" placeholder="Max" value="350">
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-group-label">Tipo</div>
+        <div class="filter-options">
+          <label class="filter-opt"><input type="checkbox" checked> <span>Titular</span></label>
+          <label class="filter-opt"><input type="checkbox" checked> <span>Reserva</span></label>
+          <label class="filter-opt"><input type="checkbox"> <span>Retrô / Clássica</span></label>
+          <label class="filter-opt"><input type="checkbox"> <span>Goleiro</span></label>
+        </div>
+      </div>
+
+      <button class="filter-apply" onclick="applyFilters()">Aplicar Filtros</button>
+    </aside>
+
+    <div>
+      <div class="catalog-header">
+        <span class="catalog-count" id="catalogCount">Exibindo 12 produtos</span>
+        <select class="sort-select">
+          <option>Mais Relevantes</option>
+          <option>Menor Preço</option>
+          <option>Maior Preço</option>
+          <option>Mais Recentes</option>
+          <option>Mais Vendidos</option>
+        </select>
+      </div>
+      <div class="products-grid" id="catalogGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ LIGAS ══════════ -->
+<section id="ligas">
+  <div class="section-tag">Categorias</div>
+  <h2 class="section-title">Explore por Liga</h2>
+  <div class="leagues-grid">
+    <div class="league-card"><div class="league-icon">🇧🇷</div><div class="league-name">Brasileirão</div><div class="league-count">18 times</div></div>
+    <div class="league-card"><div class="league-icon">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div><div class="league-name">Premier League</div><div class="league-count">20 times</div></div>
+    <div class="league-card"><div class="league-icon">🇪🇸</div><div class="league-name">La Liga</div><div class="league-count">20 times</div></div>
+    <div class="league-card"><div class="league-icon">🇩🇪</div><div class="league-name">Bundesliga</div><div class="league-count">18 times</div></div>
+    <div class="league-card"><div class="league-icon">🇮🇹</div><div class="league-name">Serie A</div><div class="league-count">20 times</div></div>
+    <div class="league-card"><div class="league-icon">🇫🇷</div><div class="league-name">Ligue 1</div><div class="league-count">18 times</div></div>
+    <div class="league-card"><div class="league-icon">🏆</div><div class="league-name">Champions</div><div class="league-count">32 times</div></div>
+    <div class="league-card"><div class="league-icon">🌍</div><div class="league-name">Seleções</div><div class="league-count">25 países</div></div>
+  </div>
+</section>
+
+<!-- ══════════ AVALIAÇÕES ══════════ -->
+<section id="avaliacoes">
+  <div class="section-tag">Avaliações</div>
+  <h2 class="section-title">O que Nossos<br>Clientes Dizem</h2>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-quote">"</div>
+      <p class="review-text">Recebi minha camisa do Flamengo em 3 dias! Qualidade incrível, tecido premium e entrega super rápida. Recomendo demais a R&B Modas!</p>
+      <div class="review-author">
+        <div class="review-avatar">MR</div>
+        <div>
+          <div class="review-name">Marcos Ribeiro</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote">"</div>
+      <p class="review-text">Comprei a camisa do Real Madrid para o meu filho e ele amou! A qualidade é excelente e o atendimento via WhatsApp foi ótimo.</p>
+      <div class="review-author">
+        <div class="review-avatar">CS</div>
+        <div>
+          <div class="review-name">Carla Souza</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote">"</div>
+      <p class="review-text">Já comprei mais de 10 camisas aqui. Preço justo, variedade enorme e as camisas retrô são simplesmente espetaculares. Loja nota 10!</p>
+      <div class="review-author">
+        <div class="review-avatar">FO</div>
+        <div>
+          <div class="review-name">Felipe Oliveira</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SOBRE ══════════ -->
+<section id="sobre">
+  <div class="about-visual">
+    <div class="about-bg-text">R&B</div>
+    <div class="about-icon-big">
+      <img src="logo 2.png" alt="R&B Modas Logo" style="width: 100%; height: auto; border-radius: 50%;">
+    </div>
+  </div>
+  <div class="about-content">
+    <div class="section-tag">Nossa História</div>
+    <h2 class="section-title">Sobre a<br>R&B Modas</h2>
+    <p class="about-text">Fundada com paixão pelo futebol e amor pela moda esportiva, a R&B Modas nasceu do desejo de levar as melhores camisas dos times de futebol para os torcedores brasileiros. Desde o início, nossa missão é simples: conectar você à sua paixão pelo esporte com qualidade, estilo e preço justo.</p>
+    <ul class="value-list">
+      <li><strong>Qualidade Premium</strong> — Todos os nossos produtos passam por rigoroso controle de qualidade antes de chegar às suas mãos.</li>
+      <li><strong>Variedade Incomparável</strong> — Mais de 20 modelos de times brasileiros e internacionais, incluindo coleções retrô exclusivas.</li>
+      <li><strong>Atendimento Humanizado</strong> — Nossa equipe está disponível pelo WhatsApp para ajudá-lo em cada passo da compra.</li>
+      <li><strong>Entrega Garantida</strong> — Enviamos para toda a grande Recife com rastreamento em tempo real e garantia de satisfação.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════ CONTATO ══════════ -->
+<section id="contato">
+  <div class="contact-layout">
+    <div>
+      <div class="section-tag">Fale Conosco</div>
+      <h2 class="section-title">Entre em<br>Contato</h2>
+      <div class="contact-info-block">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label">Endereço</div>
+            <div class="contact-value">Recife, Pernambuco – Brasil</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div>
+            <div class="contact-label">WhatsApp</div>
+            <div class="contact-value">(81) 7911-9445</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div class="contact-label">E-mail</div>
+            <div class="contact-value">contato@rbmodas.com.br</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div>
+            <div class="contact-label">Horário</div>
+            <div class="contact-value">Seg–Sex: 8h às 18h | Sáb: 9h às 14h</div>
+          </div>
+        </div>
+      </div>
+      <div class="social-links">
+        <a href="#" class="social-btn">📸 Instagram</a>
+        <a href="#" class="social-btn">💬 WhatsApp</a>
+        <a href="#" class="social-btn">📘 Facebook</a>
+      </div>
+    </div>
+    <div>
+      <div class="section-tag">Mensagem</div>
+      <h2 class="section-title" style="font-size:2rem">Envie sua<br>Mensagem</h2>
+      <div class="contact-form">
+        <div class="form-field">
+          <label>Nome Completo</label>
+          <input type="text" placeholder="Seu nome">
+        </div>
+        <div class="form-field">
+          <label>E-mail</label>
+          <input type="email" placeholder="seu@email.com">
+        </div>
+        <div class="form-field">
+          <label>Assunto</label>
+          <input type="text" placeholder="Ex: Dúvida sobre pedido">
+        </div>
+        <div class="form-field">
+          <label>Mensagem</label>
+          <textarea rows="4" placeholder="Escreva sua mensagem..."></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Enviar Mensagem ✉️</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name">R<span>&</span>B Modas</div>
+      <p class="footer-desc">A maior loja de camisas de futebol do Nordeste. Vista sua paixão com estilo e qualidade.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navegação</div>
+      <ul class="footer-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#ligas">Ligas</a></li>
+        <li><a href="#sobre">Sobre Nós</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Ligas</div>
+      <ul class="footer-links">
+        <li><a href="#">Brasileirão</a></li>
+        <li><a href="#">Premier League</a></li>
+        <li><a href="#">La Liga</a></li>
+        <li><a href="#">Champions</a></li>
+        <li><a href="#">Seleções</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Suporte</div>
+      <ul class="footer-links">
+        <li><a href="#">Trocas e Devoluções</a></li>
+        <li><a href="#">Rastrear Pedido</a></li>
+        <li><a href="#">Guia de Tamanhos</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Política de Privacidade</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 R&B Modas. Todos os direitos reservados.</span>
+    <div class="footer-pay">
+      <span style="font-size:0.75rem;color:var(--gray);margin-right:8px">Aceitamos:</span>
+      <span class="pay-badge">PIX</span>
+      <span class="pay-badge">Cartão</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ PRODUCT MODAL ══════════ -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal" id="modalContent">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-img" id="modalImg"></div>
+    <div class="modal-info" id="modalInfo"></div>
+  </div>
+</div>
+
+<!-- ══════════ CART DRAWER ══════════ -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <span class="cart-head-title">🛒 Meu Carrinho</span>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-val" id="cartTotal">R$ 0,00</span>
+    </div>
+    <button class="checkout-btn" onclick="openCheckout()">Finalizar Compra →</button>
+  </div>
+</div>
+
+<!-- ══════════ CHECKOUT MODAL ══════════ -->
+<div class="checkout-modal" id="checkoutModal">
+  <div class="checkout-box">
+    <button class="modal-close" onclick="closeCheckout()" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--gray-light);font-size:1.4rem;cursor:pointer">✕</button>
+    <div class="checkout-title">Finalizar Compra</div>
+    <div class="checkout-section">
+      <div class="checkout-section-title">Dados de Entrega</div>
+      <div class="contact-form" style="gap:10px">
+        <div class="form-field"><label>Nome Completo</label><input type="text" placeholder="Seu nome"></div>
+        <div class="form-field"><label>CEP</label><input type="text" placeholder="00000-000"></div>
+        <div class="form-field"><label>Endereço</label><input type="text" placeholder="Rua, nº, complemento"></div>
+      </div>
+    </div>
+    <div class="checkout-section">
+      <div class="checkout-section-title">Forma de Pagamento</div>
+      <div class="payment-opts">
+        <div class="pay-opt sel" onclick="selPay(this)"><div class="pay-opt-icon">📱</div>PIX</div>
+        <div class="pay-opt" onclick="selPay(this)"><div class="pay-opt-icon">💳</div>Cartão</div>
+      </div>
+    </div>
+    <div class="checkout-section" style="border:none;margin:0;padding:0">
+      <div class="checkout-section-title">Resumo</div>
+      <div id="checkoutSummary" style="font-size:0.9rem;color:var(--gray-light);margin-bottom:1.5rem"></div>
+      <button class="checkout-btn" onclick="finalizePurchase()">Confirmar Pedido ✓</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ──────────────────────────────────────────
+   DATA
+────────────────────────────────────────── */
+const PRODUCTS = [
+  { id:1, team:'Flamengo', league:'Brasileirão', name:'Camisa Titular 2024/25', price:189.90, oldPrice:229.90, badge:'sale', emoji:'🔴⚫', sizes:['P','M','G','GG'], desc:'Camisa oficial do Flamengo. Tecido DriFit de alta performance, escudo bordado e cores vibrantes. Perfeita para os dias de jogo!' },
+  { id:2, team:'Real Madrid', league:'La Liga', name:'Camisa Home 2024/25', price:249.90, badge:'new', emoji:'⚪🟡', sizes:['PP','P','M','G','GG','XGG'], desc:'A camisa mais vencedora do mundo. Confeccionada com tecnologia de ponta, proporciona conforto e estilo incomparáveis.' },
+  { id:3, team:'Manchester City', league:'Premier League', name:'Camisa Titular Azul', price:229.90, badge:'hot', emoji:'🔵⚪', sizes:['P','M','G','GG'], desc:'Vista as cores do atual campeão da Premier League. Material leve e respirável para máximo desempenho.' },
+  { id:4, team:'Corinthians', league:'Brasileirão', name:'Camisa Home 2024/25', price:179.90, oldPrice:199.90, badge:'sale', emoji:'⚫⚪', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
+  { id:5, team:'Barcelona', league:'La Liga', name:'Camisa Grená 2024/25', price:259.90, badge:'new', emoji:'🔵🔴', sizes:['PP','P','M','G'], desc:'As cores do Barça em alta definição. Camisa oficial com tecido premium e detalhes exclusivos da temporada.' },
+  { id:6, team:'Brasil', league:'Seleções', name:'Camisa Seleção – Titular', price:299.90, badge:'hot', emoji:'🟡🟢', sizes:['P','M','G','GG','XGG'], desc:'Vista o Canarinho! A camisa da Seleção Brasileira com todo o orgulho nacional. Qualidade e tradição em cada detalhe.' },
+  { id:7, team:'PSG', league:'Ligue 1', name:'Camisa Home 2024/25', price:239.90, badge:'new', emoji:'🔵🔴', sizes:['P','M','G','GG'], desc:'O glamour de Paris em suas mãos. Camisa oficial do PSG com detalhes dourados e tecido premium.' },
+  { id:8, team:'Bayern München', league:'Bundesliga', name:'Camisa Titular Vermelha', price:219.90, oldPrice:259.90, badge:'sale', emoji:'🔴⚪', sizes:['PP','P','M','G','GG'], desc:'A potência alemã na sua coleção. Camisa do Bayern com tecnologia de ponta e design clássico.' },
+];
+
+/* ──────────────────────────────────────────
+   CART STATE
+────────────────────────────────────────── */
+let cart = [];
+
+/* ──────────────────────────────────────────
+   RENDER PRODUCT CARD
+────────────────────────────────────────── */
+function productCardHTML(p) {
+  const badgeMap = { new:'badge-new', sale:'badge-sale', hot:'badge-hot' };
+  const badgeLabel = { new:'NOVO', sale:'OFERTA', hot:'🔥 QUENTE' };
+  return `
+    <div class="product-card" onclick="openModal(${p.id})">
+      <div class="product-img-wrap">
+        <div class="product-badge ${badgeMap[p.badge]||''}">${badgeLabel[p.badge]||''}</div>
+        <div style="width:100%;height:100%;background:var(--black);display:flex;align-items:center;justify-content:center;font-size:6rem">${p.emoji}</div>
+        <div class="product-overlay">
+          <button class="overlay-btn" onclick="event.stopPropagation();addToCart(${p.id})">+ Carrinho</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-team">${p.team} · ${p.league}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-price-row">
+          <div>
+            ${p.oldPrice?`<span class="price-old">R$ ${p.oldPrice.toFixed(2).replace('.',',')}</span>`:''}
+            <span class="price ${p.oldPrice?'price-new':''}">R$ ${p.price.toFixed(2).replace('.',',')}</span>
+          </div>
+          <button class="add-cart-sm" onclick="event.stopPropagation();addToCart(${p.id})">＋</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ──────────────────────────────────────────
+   INIT GRIDS
+────────────────────────────────────────── */
+function initGrids() {
+  const fg = document.getElementById('featuredGrid');
+  const cg = document.getElementById('catalogGrid');
+  PRODUCTS.forEach(p => {
+    fg.insertAdjacentHTML('beforeend', productCardHTML(p));
+    cg.insertAdjacentHTML('beforeend', productCardHTML(p));
+  });
+  document.getElementById('catalogCount').textContent = `Exibindo ${PRODUCTS.length} produtos`;
+}
+
+/* ──────────────────────────────────────────
+   MODAL
+────────────────────────────────────────── */
+let selectedSize = null;
+
+function openModal(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if(!p) return;
+  selectedSize = p.sizes[1] || p.sizes[0];
+
+  document.getElementById('modalImg').innerHTML =
+    `<div style="width:100%;height:100%;min-height:400px;background:var(--black);display:flex;align-items:center;justify-content:center;font-size:10rem">${p.emoji}</div>`;
+
+  document.getElementById('modalInfo').innerHTML = `
+    <div class="modal-team">${p.team} · ${p.league}</div>
+    <div class="modal-name">${p.name}</div>
+    <div class="modal-price">R$ ${p.price.toFixed(2).replace('.',',')}</div>
+    <p class="modal-desc">${p.desc}</p>
+    <div class="size-label">Selecione o Tamanho</div>
+    <div class="size-grid" id="modalSizes">
+      ${p.sizes.map(s=>`<button class="size-btn ${s===selectedSize?'sel':''}" onclick="pickSize(this,'${s}')">${s}</button>`).join('')}
+    </div>
+    <button class="add-to-cart" onclick="addToCartFromModal(${p.id})">🛒 Adicionar ao Carrinho</button>
+    <div class="modal-features">
+      <div class="feat"><span class="feat-icon">✓</span> Entrega rápida</div>
+      <div class="feat"><span class="feat-icon">✓</span> Qualidade premium</div>
+      <div class="feat"><span class="feat-icon">✓</span> Troca garantida</div>
+      <div class="feat"><span class="feat-icon">✓</span> Parcelamento 12x</div>
+    </div>`;
+
+  document.getElementById('productModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('productModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function pickSize(el, size) {
+  document.querySelectorAll('#modalSizes .size-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  selectedSize = size;
+}
+
+function addToCartFromModal(id) {
+  addToCart(id, selectedSize);
+  closeModal();
+}
+
+/* ──────────────────────────────────────────
+   CART
+────────────────────────────────────────── */
+function addToCart(id, size) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if(!p) return;
+  const sz = size || p.sizes[0];
+  const existing = cart.find(c => c.id === id && c.size === sz);
+  if(existing) existing.qty++;
+  else cart.push({ ...p, size: sz, qty: 1 });
+  updateCartUI();
+  showToast();
+}
+
+function removeFromCart(id, size) {
+  cart = cart.filter(c => !(c.id === id && c.size === size));
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  const count = cart.reduce((s, c) => s + c.qty, 0);
+  document.getElementById('cartCount').textContent = count;
+  document.getElementById('cartTotal').textContent = `R$ ${total.toFixed(2).replace('.',',')}`;
+
+  const itemsEl = document.getElementById('cartItems');
+  if(cart.length === 0) {
+    itemsEl.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Seu carrinho está vazio.<br>Adicione algumas camisas!</p></div>`;
+    return;
+  }
+  itemsEl.innerHTML = cart.map(c => `
+    <div class="cart-item">
+      <div style="background:var(--black);display:flex;align-items:center;justify-content:center;font-size:2.5rem;width:70px;height:70px">${c.emoji}</div>
+      <div>
+        <div class="cart-item-name">${c.name}</div>
+        <div class="cart-item-meta">${c.team} · Tam. ${c.size} · Qtd: ${c.qty}</div>
+        <div class="cart-item-price">R$ ${(c.price*c.qty).toFixed(2).replace('.',',')}</div>
+      </div>
+      <button class="cart-item-remove" onclick="removeFromCart(${c.id},'${c.size}')">✕</button>
+    </div>`).join('');
+}
+
+function openCart() {
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('cartOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  updateCartUI();
+}
+
+function closeCart() {
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+/* ──────────────────────────────────────────
+   CHECKOUT
+────────────────────────────────────────── */
+function openCheckout() {
+  closeCart();
+  const total = cart.reduce((s,c) => s+c.price*c.qty, 0);
+  const summary = cart.length === 0
+    ? '<p>Carrinho vazio.</p>'
+    : cart.map(c=>`<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>${c.name} (${c.size}×${c.qty})</span><span>R$ ${(c.price*c.qty).toFixed(2).replace('.',',')}</span></div>`).join('') +
+      `<div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:10px;margin-top:10px;display:flex;justify-content:space-between;font-weight:700;color:var(--white)"><span>Total</span><span>R$ ${total.toFixed(2).replace('.',',')}</span></div>`;
+  document.getElementById('checkoutSummary').innerHTML = summary;
+  document.getElementById('checkoutModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCheckout() {
+  document.getElementById('checkoutModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function finalizePurchase() {
+  alert('🎉 Pedido confirmado! Em breve entraremos em contato para finalizar a entrega. Obrigado pela compra na R&B Modas!');
+  cart = [];
+  updateCartUI();
+  closeCheckout();
+}
+
+function selPay(el) {
+  document.querySelectorAll('.pay-opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+/* ──────────────────────────────────────────
+   HELPERS
+────────────────────────────────────────── */
+function toggleSize(el) { el.classList.toggle('active'); }
+
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function submitForm() {
+  alert('✉️ Mensagem enviada com sucesso! Responderemos em breve.');
+}
+
+/* ──────────────────────────────────────────
+   NAVBAR SCROLL
+────────────────────────────────────────── */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+/* close modal on overlay click */
+document.getElementById('productModal').addEventListener('click', function(e) {
+  if(e.target === this) closeModal();
+});
+document.getElementById('checkoutModal').addEventListener('click', function(e) {
+  if(e.target === this) closeCheckout();
+});
+
+/* ──────────────────────────────────────────
+   FILTERS
+────────────────────────────────────────── */
+function applyFilters() {
+  // Capturar valores dos filtros
+  const leagues = [];
+  document.querySelectorAll('.filters-sidebar .filter-group:nth-child(2) input[type="checkbox"]:checked').forEach(checkbox => {
+    leagues.push(checkbox.nextElementSibling.textContent.trim());
+  });
+
+  const sizes = [];
+  document.querySelectorAll('.size-chip.active').forEach(chip => {
+    sizes.push(chip.textContent.trim());
+  });
+
+  const minPrice = parseFloat(document.querySelector('.price-input[placeholder="Min"]').value) || 0;
+  const maxPrice = parseFloat(document.querySelector('.price-input[placeholder="Max"]').value) || Infinity;
+
+  const types = [];
+  document.querySelectorAll('.filters-sidebar .filter-group:nth-child(5) input[type="checkbox"]:checked').forEach(checkbox => {
+    types.push(checkbox.nextElementSibling.textContent.trim().toLowerCase());
+  });
+
+  // Filtrar produtos
+  const filteredProducts = PRODUCTS.filter(product => {
+    // Verificar liga
+    const leagueMatch = leagues.length === 0 || leagues.includes(product.league);
+    
+    // Verificar tamanho
+    const sizeMatch = sizes.length === 0 || product.sizes.some(size => sizes.includes(size));
+    
+    // Verificar preço
+    const priceMatch = product.price >= minPrice && product.price <= maxPrice;
+    
+    // Verificar tipo (baseado no nome do produto)
+    let typeMatch = true;
+    if (types.length > 0) {
+      const productName = product.name.toLowerCase();
+      typeMatch = types.some(type => {
+        if (type === 'titular') return productName.includes('titular') || productName.includes('home');
+        if (type === 'reserva') return productName.includes('reserva') || productName.includes('away');
+        if (type === 'retrô / clássica') return productName.includes('retrô') || productName.includes('clássica');
+        if (type === 'goleiro') return productName.includes('goleiro') || productName.includes('goalkeeper');
+        return false;
+      });
+    }
+    
+    return leagueMatch && sizeMatch && priceMatch && typeMatch;
+  });
+
+  // Atualizar grid com produtos filtrados
+  updateCatalogGrid(filteredProducts);
+}
+
+function updateCatalogGrid(products) {
+  const catalogGrid = document.getElementById('catalogGrid');
+  catalogGrid.innerHTML = '';
+  
+  products.forEach(product => {
+    catalogGrid.insertAdjacentHTML('beforeend', productCardHTML(product));
+  });
+  
+  // Atualizar contador
+  const count = products.length;
+  document.getElementById('catalogCount').textContent = `Exibindo ${count} produto${count !== 1 ? 's' : ''}`;
+  
+  // Mostrar mensagem se não houver produtos
+  if (count === 0) {
+    catalogGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--gray);font-size:1.1rem">Nenhum produto encontrado com os filtros selecionados.</div>';
+  }
+}
+
+/* ──────────────────────────────────────────
+   INIT
+────────────────────────────────────────── */
+initGrids();
+updateCartUI();
+</script>
+</body>
+</html>
