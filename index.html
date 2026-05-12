@@ -1197,10 +1197,10 @@
       .hero-title { font-size: 2.2rem; line-height: 1.1; }
       .hero-sub { font-size: 0.9rem; }
       .hero-actions { max-width: 100%; }
-      .featured-grid, .catalog-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .featured-grid, .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
       .product-card { margin: 0; }
-      .product-name { font-size: 0.95rem; }
-      .product-team { font-size: 0.8rem; }
+      .product-name { font-size: 0.9rem; }
+      .product-team { font-size: 0.75rem; }
       .section-title { font-size: 2rem; }
       .checkout-box { padding: 2rem; }
       .modal-info { padding: 1.5rem; }
@@ -1723,12 +1723,12 @@
 ────────────────────────────────────────── */
 const PRODUCTS = [
   { id:1, team:'Tottenham Hotspur', league:'Premier League', name:'Camisa Titular 2024/25', price:99.90, oldPrice:149.90, badge:'sale', image:'camisas/camisa1.png', sizes:['P','M','G','GG'], desc:'Camisa oficial do Flamengo. Tecido DriFit de alta performance, escudo bordado e cores vibrantes. Perfeita para os dias de jogo!' },
-  { id:2, team:'Portugal', league:'Seleção', name:'Camisa Home 2024/25', price:249.90, badge:'new', image:'camisas/camisa2.png', sizes:['PP','P','M','G','GG','XGG'], desc:'A camisa mais vencedora do mundo. Confeccionada com tecnologia de ponta, proporciona conforto e estilo incomparáveis.' },
-  { id:3, team:'Wolfsburg', league:'Bundesliga', name:'Camisa Titular Azul', price:229.90, badge:'new', image:'camisas/camisa3.png', sizes:['P','M','G','GG'], desc:'Vista as cores do atual campeão da Premier League. Material leve e respirável para máximo desempenho.' },
+  { id:2, team:'Portugal', league:'Seleção', name:'Camisa Home 2024/25', price:99.90, badge:'new', image:'camisas/camisa2.png', sizes:['PP','P','M','G','GG','XGG'], desc:'A camisa mais vencedora do mundo. Confeccionada com tecnologia de ponta, proporciona conforto e estilo incomparáveis.' },
+  { id:3, team:'Wolfsburg', league:'Bundesliga', name:'Camisa Titular Azul', price:99.90, badge:'new', image:'camisas/camisa3.png', sizes:['P','M','G','GG'], desc:'Vista as cores do atual campeão da Premier League. Material leve e respirável para máximo desempenho.' },
   { id:4, team:'Inter de Milão', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/camisa4.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
   { id:1, team:'Tottenham Hotspur', league:'Premier League', name:'Camisa Titular 2024/25', price:99.90, oldPrice:149.90, badge:'sale', image:'camisas/camisa1.png', sizes:['P','M','G','GG'], desc:'Camisa oficial do Flamengo. Tecido DriFit de alta performance, escudo bordado e cores vibrantes. Perfeita para os dias de jogo!' },
-  { id:2, team:'Portugal', league:'Seleção', name:'Camisa Home 2024/25', price:249.90, badge:'new', image:'camisas/camisa2.png', sizes:['PP','P','M','G','GG','XGG'], desc:'A camisa mais vencedora do mundo. Confeccionada com tecnologia de ponta, proporciona conforto e estilo incomparáveis.' },
-  { id:3, team:'Wolfsburg', league:'Bundesliga', name:'Camisa Titular Azul', price:229.90, badge:'new', image:'camisas/camisa3.png', sizes:['P','M','G','GG'], desc:'Vista as cores do atual campeão da Premier League. Material leve e respirável para máximo desempenho.' },
+  { id:2, team:'Portugal', league:'Seleção', name:'Camisa Home 2024/25', price:99.90, badge:'new', image:'camisas/camisa2.png', sizes:['PP','P','M','G','GG','XGG'], desc:'A camisa mais vencedora do mundo. Confeccionada com tecnologia de ponta, proporciona conforto e estilo incomparáveis.' },
+  { id:3, team:'Wolfsburg', league:'Bundesliga', name:'Camisa Titular Azul', price:99.90, badge:'new', image:'camisas/camisa3.png', sizes:['P','M','G','GG'], desc:'Vista as cores do atual campeão da Premier League. Material leve e respirável para máximo desempenho.' },
   { id:4, team:'Inter de Milão', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/camisa4.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
 ];
 
