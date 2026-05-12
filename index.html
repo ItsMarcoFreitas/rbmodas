@@ -1168,19 +1168,54 @@
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
-      .hero-stats { gap: 1.5rem; }
-      .modal { grid-template-columns: 1fr; }
-      .modal-img { min-height: 240px; }
+      .hero-content { max-width: 100%; padding: 0 4%; }
+      .hero-stats { gap: 1rem; margin-top: 1.5rem; }
+      .hero-title { font-size: 2.8rem; line-height: 1.1; }
+      .hero-sub { font-size: 0.95rem; max-width: 100%; }
+      .hero-actions { flex-direction: column; gap: 1rem; width: 100%; max-width: 280px; }
+      .hero-actions .btn-primary, .hero-actions .btn-outline { width: 100%; text-align: center; padding: 1rem; }
+      .featured-grid, .catalog-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+      .modal { grid-template-columns: 1fr; max-width: 95vw; }
+      .modal-img { min-height: 200px; }
+      .modal-info { padding: 2rem; }
       footer { padding: 3rem 5% 1.5rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
       .footer-bottom { flex-direction: column; align-items: flex-start; }
       .payment-opts { grid-template-columns: 1fr; }
+      .section-title { font-size: 2.5rem; }
+      .section-tag { font-size: 0.75rem; }
+      .filters-sidebar { padding: 1.5rem; }
+      .filter-group { margin-bottom: 1.2rem; }
+      .size-chips { gap: 0.5rem; }
+      .size-chip { padding: 0.5rem 1rem; font-size: 0.85rem; }
     }
     @media (max-width: 480px) {
       nav { padding: 0 4%; }
-      section { padding: 4rem 4%; }
+      section { padding: 3rem 4%; }
       .hero-logo { display: none; }
       .hero-stats { flex-wrap: wrap; gap: 1rem; }
+      .hero-title { font-size: 2.2rem; line-height: 1.1; }
+      .hero-sub { font-size: 0.9rem; }
+      .hero-actions { max-width: 100%; }
+      .featured-grid, .catalog-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .product-card { margin: 0; }
+      .product-name { font-size: 0.95rem; }
+      .product-team { font-size: 0.8rem; }
+      .section-title { font-size: 2rem; }
+      .checkout-box { padding: 2rem; }
+      .modal-info { padding: 1.5rem; }
+      .size-grid { gap: 0.5rem; }
+      .size-btn { padding: 0.75rem 1rem; font-size: 0.9rem; }
+      .filters-sidebar { padding: 1rem; }
+      .filter-group { margin-bottom: 1rem; }
+      .size-chips { gap: 0.4rem; }
+      .size-chip { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+      .contact-item { padding: 1rem; }
+      .contact-icon { font-size: 1.2rem; }
+      .contact-label { font-size: 0.75rem; }
+      .contact-value { font-size: 0.9rem; }
+      .footer-pay { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+      .pay-badge { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
     }
 
     /* Mobile menu */
@@ -1188,22 +1223,65 @@
       position: fixed; inset: 0; z-index: 998;
       background: var(--black);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 2rem;
+      gap: 1.5rem;
       transform: translateX(-100%);
       transition: transform 0.3s ease;
+      padding: 2rem;
     }
-    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu.active { transform: translateX(0); }
     .mobile-menu a {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 2rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--white);
+      color: var(--gray-light);
       text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       transition: color 0.2s;
+      padding: 1rem 2rem;
+      border: 2px solid transparent;
+      border-radius: 8px;
     }
-    .mobile-menu a:hover { color: var(--red); }
+    .mobile-menu a:hover { 
+      color: var(--red); 
+      border-color: var(--red);
+      background: rgba(208, 2, 27, 0.1);
+    }
+    
+    /* Mobile product cards optimizations */
+    @media (max-width: 768px) {
+      .product-img-wrap {
+        height: 280px;
+      }
+      .product-info {
+        padding: 1rem;
+      }
+      .product-price-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      .add-cart-sm {
+        align-self: flex-end;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .product-img-wrap {
+        height: 220px;
+      }
+      .product-info {
+        padding: 0.8rem;
+      }
+      .product-badge {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.5rem;
+      }
+      .overlay-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+      }
+    }
 
     /* Notification toast */
     .toast {
@@ -1280,9 +1358,9 @@
       <a href="#destaques" class="btn-outline">Ver Destaques</a>
     </div>
     <div class="hero-stats">
-      <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Modelos</div></div>
-      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Times</div></div>
-      <div class="stat"><div class="stat-num">10k+</div><div class="stat-label">Clientes</div></div>
+      <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Modelos</div></div>
+      <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Times</div></div>
+      <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Clientes</div></div>
     </div>
   </div>
 </section>
@@ -1644,14 +1722,14 @@
    DATA
 ────────────────────────────────────────── */
 const PRODUCTS = [
-  { id:1, team:'Flamengo', league:'Brasileirão', name:'Camisa Titular 2024/25', price:189.90, oldPrice:229.90, badge:'sale', emoji:'🔴⚫', sizes:['P','M','G','GG'], desc:'Camisa oficial do Flamengo. Tecido DriFit de alta performance, escudo bordado e cores vibrantes. Perfeita para os dias de jogo!' },
-  { id:2, team:'Real Madrid', league:'La Liga', name:'Camisa Home 2024/25', price:249.90, badge:'new', emoji:'⚪🟡', sizes:['PP','P','M','G','GG','XGG'], desc:'A camisa mais vencedora do mundo. Confeccionada com tecnologia de ponta, proporciona conforto e estilo incomparáveis.' },
-  { id:3, team:'Manchester City', league:'Premier League', name:'Camisa Titular Azul', price:229.90, badge:'hot', emoji:'🔵⚪', sizes:['P','M','G','GG'], desc:'Vista as cores do atual campeão da Premier League. Material leve e respirável para máximo desempenho.' },
-  { id:4, team:'Corinthians', league:'Brasileirão', name:'Camisa Home 2024/25', price:179.90, oldPrice:199.90, badge:'sale', emoji:'⚫⚪', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
-  { id:5, team:'Barcelona', league:'La Liga', name:'Camisa Grená 2024/25', price:259.90, badge:'new', emoji:'🔵🔴', sizes:['PP','P','M','G'], desc:'As cores do Barça em alta definição. Camisa oficial com tecido premium e detalhes exclusivos da temporada.' },
-  { id:6, team:'Brasil', league:'Seleções', name:'Camisa Seleção – Titular', price:299.90, badge:'hot', emoji:'🟡🟢', sizes:['P','M','G','GG','XGG'], desc:'Vista o Canarinho! A camisa da Seleção Brasileira com todo o orgulho nacional. Qualidade e tradição em cada detalhe.' },
-  { id:7, team:'PSG', league:'Ligue 1', name:'Camisa Home 2024/25', price:239.90, badge:'new', emoji:'🔵🔴', sizes:['P','M','G','GG'], desc:'O glamour de Paris em suas mãos. Camisa oficial do PSG com detalhes dourados e tecido premium.' },
-  { id:8, team:'Bayern München', league:'Bundesliga', name:'Camisa Titular Vermelha', price:219.90, oldPrice:259.90, badge:'sale', emoji:'🔴⚪', sizes:['PP','P','M','G','GG'], desc:'A potência alemã na sua coleção. Camisa do Bayern com tecnologia de ponta e design clássico.' },
+  { id:1, team:'Tottenham Hotspur', league:'Premier League', name:'Camisa Titular 2024/25', price:99.90, oldPrice:149.90, badge:'sale', image:'camisas/camisa1.png', sizes:['P','M','G','GG'], desc:'Camisa oficial do Flamengo. Tecido DriFit de alta performance, escudo bordado e cores vibrantes. Perfeita para os dias de jogo!' },
+  { id:2, team:'Portugal', league:'Seleção', name:'Camisa Home 2024/25', price:249.90, badge:'new', image:'camisas/camisa2.png', sizes:['PP','P','M','G','GG','XGG'], desc:'A camisa mais vencedora do mundo. Confeccionada com tecnologia de ponta, proporciona conforto e estilo incomparáveis.' },
+  { id:3, team:'Wolfsburg', league:'Bundesliga', name:'Camisa Titular Azul', price:229.90, badge:'new', image:'camisas/camisa3.png', sizes:['P','M','G','GG'], desc:'Vista as cores do atual campeão da Premier League. Material leve e respirável para máximo desempenho.' },
+  { id:4, team:'Inter de Milão', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/camisa4.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
+  { id:1, team:'Tottenham Hotspur', league:'Premier League', name:'Camisa Titular 2024/25', price:99.90, oldPrice:149.90, badge:'sale', image:'camisas/camisa1.png', sizes:['P','M','G','GG'], desc:'Camisa oficial do Flamengo. Tecido DriFit de alta performance, escudo bordado e cores vibrantes. Perfeita para os dias de jogo!' },
+  { id:2, team:'Portugal', league:'Seleção', name:'Camisa Home 2024/25', price:249.90, badge:'new', image:'camisas/camisa2.png', sizes:['PP','P','M','G','GG','XGG'], desc:'A camisa mais vencedora do mundo. Confeccionada com tecnologia de ponta, proporciona conforto e estilo incomparáveis.' },
+  { id:3, team:'Wolfsburg', league:'Bundesliga', name:'Camisa Titular Azul', price:229.90, badge:'new', image:'camisas/camisa3.png', sizes:['P','M','G','GG'], desc:'Vista as cores do atual campeão da Premier League. Material leve e respirável para máximo desempenho.' },
+  { id:4, team:'Inter de Milão', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/camisa4.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
 ];
 
 /* ──────────────────────────────────────────
@@ -1669,7 +1747,8 @@ function productCardHTML(p) {
     <div class="product-card" onclick="openModal(${p.id})">
       <div class="product-img-wrap">
         <div class="product-badge ${badgeMap[p.badge]||''}">${badgeLabel[p.badge]||''}</div>
-        <div style="width:100%;height:100%;background:var(--black);display:flex;align-items:center;justify-content:center;font-size:6rem">${p.emoji}</div>
+        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div style="width:100%;height:100%;background:var(--black);display:flex;align-items:center;justify-content:center;font-size:6rem; display:none;">${p.emoji}</div>
         <div class="product-overlay">
           <button class="overlay-btn" onclick="event.stopPropagation();addToCart(${p.id})">+ Carrinho</button>
         </div>
@@ -1712,7 +1791,8 @@ function openModal(id) {
   selectedSize = p.sizes[1] || p.sizes[0];
 
   document.getElementById('modalImg').innerHTML =
-    `<div style="width:100%;height:100%;min-height:400px;background:var(--black);display:flex;align-items:center;justify-content:center;font-size:10rem">${p.emoji}</div>`;
+    `<img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;min-height:400px;object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <div style="width:100%;height:100%;min-height:400px;background:var(--black);display:flex;align-items:center;justify-content:center;font-size:10rem; display:none;">${p.emoji}</div>`;
 
   document.getElementById('modalInfo').innerHTML = `
     <div class="modal-team">${p.team} · ${p.league}</div>
