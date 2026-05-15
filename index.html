@@ -1726,11 +1726,13 @@ const PRODUCTS = [
   { id:2, team:'Portugal', league:'Seleção', name:'Camisa Home 2024/25', price:99.90, badge:'new', image:'camisas/camisa2.png', sizes:['PP','P','M','G','GG','XGG'], desc:'A camisa mais vencedora do mundo. Confeccionada com tecnologia de ponta, proporciona conforto e estilo incomparáveis.' },
   { id:3, team:'Wolfsburg', league:'Bundesliga', name:'Camisa Titular Azul', price:99.90, badge:'new', image:'camisas/camisa3.png', sizes:['P','M','G','GG'], desc:'Vista as cores do atual campeão da Premier League. Material leve e respirável para máximo desempenho.' },
   { id:4, team:'Inter de Milão', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/camisa4.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
-  { id:1, team:'Tottenham Hotspur', league:'Premier League', name:'Camisa Titular 2024/25', price:99.90, oldPrice:149.90, badge:'sale', image:'camisas/camisa1.png', sizes:['P','M','G','GG'], desc:'Camisa oficial do Flamengo. Tecido DriFit de alta performance, escudo bordado e cores vibrantes. Perfeita para os dias de jogo!' },
-  { id:2, team:'Portugal', league:'Seleção', name:'Camisa Home 2024/25', price:99.90, badge:'new', image:'camisas/camisa2.png', sizes:['PP','P','M','G','GG','XGG'], desc:'A camisa mais vencedora do mundo. Confeccionada com tecnologia de ponta, proporciona conforto e estilo incomparáveis.' },
-  { id:3, team:'Wolfsburg', league:'Bundesliga', name:'Camisa Titular Azul', price:99.90, badge:'new', image:'camisas/camisa3.png', sizes:['P','M','G','GG'], desc:'Vista as cores do atual campeão da Premier League. Material leve e respirável para máximo desempenho.' },
-  { id:4, team:'Inter de Milão', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/camisa4.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
+  { id:5, team:'Agentina com detalhes dourados', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/argentinadourada.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
+  { id:6, team:'Camisa Bahia 2023', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/bahia2023.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
+  { id:7, team:'Camisa do Barcelona 2023', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/fcbarcelona2023.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
+  { id:8, team:'Camisa da Argetina Azul', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/argentinaazul.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
+  { id:8, team:'Camisa do Flamengo', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/camisaflamengo.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
 ];
+
 
 /* ──────────────────────────────────────────
    CART STATE
@@ -1863,7 +1865,8 @@ function updateCartUI() {
   }
   itemsEl.innerHTML = cart.map(c => `
     <div class="cart-item">
-      <div style="background:var(--black);display:flex;align-items:center;justify-content:center;font-size:2.5rem;width:70px;height:70px">${c.emoji}</div>
+      <img src="${c.image}" alt="${c.name}" class="cart-item-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div style="background:var(--black);display:flex;align-items:center;justify-content:center;font-size:2.5rem;width:70px;height:70px;display:none;">${c.emoji||'👕'}</div>
       <div>
         <div class="cart-item-name">${c.name}</div>
         <div class="cart-item-meta">${c.team} · Tam. ${c.size} · Qtd: ${c.qty}</div>
@@ -2030,5 +2033,28 @@ function updateCatalogGrid(products) {
 initGrids();
 updateCartUI();
 </script>
+
+<!-- Firebase SDKs -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+  import { getFirestore, collection, getDocs, addDoc, doc, updateDoc, deleteDoc, query, where, orderBy, limit } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+  
+  // Firebase configuration will be loaded from firebase-config.js
+  window.firebaseModules = {
+    initializeApp,
+    getFirestore,
+    collection,
+    getDocs,
+    addDoc,
+    doc,
+    updateDoc,
+    deleteDoc,
+    query,
+    where,
+    orderBy,
+    limit
+  };
+</script>
+<script src="firebase-config.js"></script>
 </body>
 </html>
