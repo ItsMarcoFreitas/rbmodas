@@ -4,14 +4,307 @@
 
 // Wait for Firebase to be ready
 let firebaseReady = false;
+let currentUser = null;
+
 const checkFirebaseReady = setInterval(() => {
-  if (window.firebaseDB && window.firebaseModules) {
+  if (window.firebaseDB && window.firebaseAuth && window.firebaseModules) {
     firebaseReady = true;
     clearInterval(checkFirebaseReady);
     console.log("Firebase está pronto!");
+    initAuth();
     loadProductsFromFirebase();
   }
 }, 100);
+
+// ==================== AUTENTICAÇÃO ====================
+
+function initAuth() {
+  const { onAuthStateChanged } = window.firebaseModules;
+  onAuthStateChanged(window.firebaseAuth, (user) => {
+    currentUser = user;
+    updateAuthUI(user);
+    if (user && typeof cart !== 'undefined') {
+      const saved = loadCartFromLocalStorage();
+      if (saved.length) cart = saved;
+      if (typeof updateCartUI === 'function') updateCartUI();
+    }
+  });
+}
+
+function updateAuthUI(user) {
+  const guest = document.getElementById('authNavGuest');
+  const logged = document.getElementById('authNavUser');
+  const mobileLink = document.getElementById('mobileAuthLink');
+  const nameEl = document.getElementById('userDisplayName');
+
+  if (!guest || !logged) return;
+
+  if (user) {
+    guest.style.display = 'none';
+    logged.style.display = 'block';
+    const label = user.displayName || user.email?.split('@')[0] || 'Conta';
+    if (nameEl) nameEl.textContent = label;
+    if (mobileLink) {
+      mobileLink.textContent = 'Minha conta';
+      mobileLink.onclick = () => { toggleMenu(); toggleUserMenu(); return false; };
+    }
+  } else {
+    guest.style.display = 'block';
+    logged.style.display = 'none';
+    if (mobileLink) {
+      mobileLink.textContent = 'Entrar';
+      mobileLink.onclick = () => { toggleMenu(); openAuthModal(); return false; };
+    }
+    document.getElementById('userDropdown')?.classList.remove('open');
+  }
+}
+
+function openAuthModal(tab = 'login') {
+  clearAuthError();
+  switchAuthTab(tab);
+  document.getElementById('authModal')?.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAuthModal() {
+  document.getElementById('authModal')?.classList.remove('active');
+  document.body.style.overflow = '';
+  clearAuthError();
+}
+
+function switchAuthTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach((t) => {
+    t.classList.toggle('active', t.dataset.tab === tab);
+  });
+  document.getElementById('authPanelLogin')?.classList.toggle('active', tab === 'login');
+  document.getElementById('authPanelRegister')?.classList.toggle('active', tab === 'register');
+  clearAuthError();
+}
+
+function showAuthError(msg) {
+  const el = document.getElementById('authError');
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+function clearAuthError() {
+  const el = document.getElementById('authError');
+  if (!el) return;
+  el.textContent = '';
+  el.classList.remove('show');
+}
+
+function getAuthErrorMessage(code) {
+  const messages = {
+    'auth/invalid-email': 'E-mail inválido.',
+    'auth/user-disabled': 'Esta conta foi desativada.',
+    'auth/user-not-found': 'E-mail ou senha incorretos.',
+    'auth/wrong-password': 'E-mail ou senha incorretos.',
+    'auth/invalid-credential': 'E-mail ou senha incorretos.',
+    'auth/email-already-in-use': 'Este e-mail já está cadastrado.',
+    'auth/weak-password': 'A senha deve ter pelo menos 6 caracteres.',
+    'auth/too-many-requests': 'Muitas tentativas. Tente novamente mais tarde.',
+    'auth/popup-closed-by-user': 'Login com Google cancelado.',
+    'auth/network-request-failed': 'Erro de conexão. Verifique sua internet.',
+    'auth/operation-not-allowed': 'Login por e-mail não está ativado no Firebase. Ative em Authentication → Sign-in method.',
+    'auth/admin-restricted-operation': 'Cadastro desativado no Firebase Console.',
+    'auth/missing-password': 'Informe uma senha.',
+    'auth/internal-error': 'Erro interno do Firebase. Verifique se Authentication está ativado no console.'
+  };
+  return messages[code] || 'Não foi possível concluir. Tente novamente.';
+}
+
+function ensureFirebaseAuth() {
+  if (!window.firebaseAuth) {
+    showAuthError('Firebase ainda está carregando. Aguarde alguns segundos e tente de novo.');
+    return false;
+  }
+  return true;
+}
+
+function setAuthLoading(loading) {
+  ['loginSubmitBtn', 'registerSubmitBtn', 'googleLoginBtn'].forEach((id) => {
+    const btn = document.getElementById(id);
+    if (btn) btn.disabled = loading;
+  });
+}
+
+async function handleLogin(e) {
+  e.preventDefault();
+  clearAuthError();
+  if (!ensureFirebaseAuth()) return;
+  setAuthLoading(true);
+  try {
+    const { signInWithEmailAndPassword } = window.firebaseModules;
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    await signInWithEmailAndPassword(window.firebaseAuth, email, password);
+    closeAuthModal();
+    if (typeof showToast === 'function') {
+      const t = document.getElementById('toast');
+      if (t) { t.textContent = '✓ Login realizado!'; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+    }
+  } catch (err) {
+    console.error('Erro no login:', err.code, err.message);
+    showAuthError(getAuthErrorMessage(err.code));
+  } finally {
+    setAuthLoading(false);
+  }
+}
+
+async function handleRegister(e) {
+  e.preventDefault();
+  clearAuthError();
+  if (!ensureFirebaseAuth()) return;
+  setAuthLoading(true);
+  try {
+    const { createUserWithEmailAndPassword, updateProfile } = window.firebaseModules;
+    const name = document.getElementById('registerName').value.trim();
+    const email = document.getElementById('registerEmail').value.trim();
+    const password = document.getElementById('registerPassword').value;
+    const cred = await createUserWithEmailAndPassword(window.firebaseAuth, email, password);
+    if (name) await updateProfile(cred.user, { displayName: name });
+    closeAuthModal();
+    const t = document.getElementById('toast');
+    if (t) { t.textContent = '✓ Conta criada com sucesso!'; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+  } catch (err) {
+    console.error('Erro ao criar conta:', err.code, err.message);
+    showAuthError(getAuthErrorMessage(err.code));
+  } finally {
+    setAuthLoading(false);
+  }
+}
+
+async function handleGoogleLogin() {
+  clearAuthError();
+  if (!ensureFirebaseAuth()) return;
+  setAuthLoading(true);
+  try {
+    const { GoogleAuthProvider, signInWithPopup } = window.firebaseModules;
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(window.firebaseAuth, provider);
+    closeAuthModal();
+  } catch (err) {
+    if (err.code !== 'auth/popup-closed-by-user') showAuthError(getAuthErrorMessage(err.code));
+  } finally {
+    setAuthLoading(false);
+  }
+}
+
+async function handleLogout() {
+  try {
+    const { signOut } = window.firebaseModules;
+    await signOut(window.firebaseAuth);
+    document.getElementById('userDropdown')?.classList.remove('open');
+  } catch (err) {
+    console.error('Erro ao sair:', err);
+  }
+}
+
+function toggleUserMenu() {
+  document.getElementById('userDropdown')?.classList.toggle('open');
+}
+
+function requireAuthForCheckout() {
+  if (!currentUser) {
+    openAuthModal('login');
+    const t = document.getElementById('toast');
+    if (t) { t.textContent = 'Faça login para finalizar a compra'; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+    return false;
+  }
+  return true;
+}
+
+function prefillCheckoutFromUser() {
+  if (!currentUser) return;
+  const nameEl = document.getElementById('checkoutName');
+  const emailEl = document.getElementById('checkoutEmail');
+  if (nameEl && !nameEl.value) nameEl.value = currentUser.displayName || '';
+  if (emailEl && !emailEl.value) emailEl.value = currentUser.email || '';
+}
+
+async function submitOrder() {
+  if (!cart.length) {
+    alert('Seu carrinho está vazio.');
+    return false;
+  }
+  const name = document.getElementById('checkoutName')?.value.trim();
+  const email = document.getElementById('checkoutEmail')?.value.trim();
+  const cep = document.getElementById('checkoutCep')?.value.trim();
+  const address = document.getElementById('checkoutAddress')?.value.trim();
+
+  if (!name || !email || !cep || !address) {
+    alert('Preencha todos os dados de entrega.');
+    return false;
+  }
+
+  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  const orderData = {
+    customer: { name, email, cep, address },
+    items: cart.map((c) => ({ id: c.id, name: c.name, team: c.team, size: c.size, qty: c.qty, price: c.price })),
+    total,
+    userId: currentUser?.uid || null
+  };
+
+  try {
+    if (firebaseReady && typeof createOrder === 'function') {
+      await createOrder(orderData);
+    }
+    alert('🎉 Pedido confirmado! Em breve entraremos em contato. Obrigado pela compra na R&B Modas!');
+    cart = [];
+    saveCartToLocalStorage(cart);
+    if (typeof updateCartUI === 'function') updateCartUI();
+    closeCheckout();
+    return true;
+  } catch (err) {
+    console.error(err);
+    alert('Erro ao salvar o pedido. Tente novamente.');
+    return false;
+  }
+}
+
+async function openMyOrders() {
+  document.getElementById('userDropdown')?.classList.remove('open');
+  if (!currentUser) {
+    openAuthModal('login');
+    return;
+  }
+  const orders = await getOrdersByEmail(currentUser.email);
+  if (!orders.length) {
+    alert('Você ainda não tem pedidos.');
+    return;
+  }
+  const list = orders.map((o) => {
+    const date = o.createdAt ? new Date(o.createdAt).toLocaleDateString('pt-BR') : '-';
+    return `• ${date} — R$ ${Number(o.total).toFixed(2).replace('.', ',')} (${o.status || 'pendente'})`;
+  }).join('\n');
+  alert(`Seus pedidos:\n\n${list}`);
+}
+
+window.openAuthModal = openAuthModal;
+window.closeAuthModal = closeAuthModal;
+window.switchAuthTab = switchAuthTab;
+window.handleLogin = handleLogin;
+window.handleRegister = handleRegister;
+window.handleGoogleLogin = handleGoogleLogin;
+window.handleLogout = handleLogout;
+window.toggleUserMenu = toggleUserMenu;
+window.requireAuthForCheckout = requireAuthForCheckout;
+window.prefillCheckoutFromUser = prefillCheckoutFromUser;
+window.submitOrder = submitOrder;
+window.openMyOrders = openMyOrders;
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof cart !== 'undefined') {
+    const saved = loadCartFromLocalStorage();
+    if (saved.length) {
+      cart.length = 0;
+      cart.push(...saved);
+      if (typeof updateCartUI === 'function') updateCartUI();
+    }
+  }
+});
 
 // ==================== PRODUTOS ====================
 
@@ -29,22 +322,24 @@ async function loadProductsFromFirebase() {
     querySnapshot.forEach((doc) => {
       products.push({ id: doc.id, ...doc.data() });
     });
-    
-    // Atualizar a variável global PRODUCTS
-    if (typeof PRODUCTS !== 'undefined') {
-      PRODUCTS.length = 0;
-      PRODUCTS.push(...products);
-    } else {
-      window.PRODUCTS = products;
-    }
-    
+
     console.log(`${products.length} produtos carregados do Firebase`);
-    
-    // Re-renderizar grids
-    if (typeof initGrids === 'function') {
-      initGrids();
+
+    // Só substitui o catálogo local se o Firebase tiver produtos
+    if (products.length > 0) {
+      if (typeof PRODUCTS !== 'undefined') {
+        PRODUCTS.length = 0;
+        PRODUCTS.push(...products);
+      } else {
+        window.PRODUCTS = products;
+      }
+      if (typeof initGrids === 'function') {
+        initGrids(true);
+      }
+    } else {
+      console.log('Firebase vazio — mantendo produtos locais do site.');
     }
-    
+
     return products;
   } catch (error) {
     console.error('Erro ao carregar produtos:', error);
@@ -128,6 +423,7 @@ async function createOrder(orderData) {
       customer: orderData.customer,
       items: orderData.items,
       total: orderData.total,
+      userId: orderData.userId || null,
       status: 'pending',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
@@ -289,7 +585,13 @@ function loadSampleProducts() {
       featured: true
     }
   ];
-  
-  window.PRODUCTS = sampleProducts;
+
+  if (typeof PRODUCTS !== 'undefined') {
+    PRODUCTS.length = 0;
+    PRODUCTS.push(...sampleProducts);
+  } else {
+    window.PRODUCTS = sampleProducts;
+  }
+  if (typeof initGrids === 'function') initGrids(true);
   return sampleProducts;
 }

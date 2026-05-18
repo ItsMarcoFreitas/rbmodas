@@ -106,6 +106,66 @@
       transition: color 0.2s;
     }
     .cart-btn:hover { color: var(--red); }
+
+    .auth-btn {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .auth-btn:hover { border-color: var(--red); color: var(--red); }
+
+    .user-menu { position: relative; }
+    .user-menu-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      cursor: pointer;
+      max-width: 180px;
+    }
+    .user-menu-btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .user-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 200px;
+      background: var(--gray-dark);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      z-index: 10001;
+    }
+    .user-dropdown.open { display: block; }
+    .user-dropdown-item {
+      display: block;
+      width: 100%;
+      padding: 12px 16px;
+      background: none;
+      border: none;
+      color: var(--gray-light);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .user-dropdown-item:hover { background: rgba(208,2,27,0.12); color: var(--white); }
+
     .cart-count {
       position: absolute; top: -2px; right: -4px;
       background: var(--red); color: white;
@@ -1090,6 +1150,102 @@
       padding: 20px;
     }
     .checkout-modal.active { display: flex; }
+
+    /* ══════════════════════════════════════════
+       AUTH MODAL
+    ══════════════════════════════════════════ */
+    .auth-modal {
+      position: fixed; inset: 0; z-index: 10001;
+      background: rgba(0,0,0,0.9);
+      display: none; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .auth-modal.active { display: flex; }
+    .auth-box {
+      background: var(--gray-dark);
+      width: 100%; max-width: 420px;
+      padding: 36px;
+      position: relative;
+      animation: modalIn 0.35s ease;
+    }
+    .auth-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .auth-subtitle { font-size: 0.85rem; color: var(--gray); margin-bottom: 1.5rem; }
+    .auth-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .auth-tab {
+      flex: 1;
+      padding: 10px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--gray);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .auth-tab.active { color: var(--red); border-bottom-color: var(--red); }
+    .auth-error {
+      display: none;
+      background: rgba(208,2,27,0.15);
+      border: 1px solid rgba(208,2,27,0.4);
+      color: #ff8a8a;
+      font-size: 0.82rem;
+      padding: 10px 12px;
+      margin-bottom: 1rem;
+    }
+    .auth-error.show { display: block; }
+    .auth-google-btn {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 12px;
+      background: var(--pure-white);
+      border: none;
+      color: var(--black);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: opacity 0.2s;
+    }
+    .auth-google-btn:hover { opacity: 0.9; }
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 1.25rem 0;
+      color: var(--gray);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+    .auth-submit { width: 100%; margin-top: 0.5rem; }
+    .auth-form-panel { display: none; }
+    .auth-form-panel.active { display: block; }
+
     .checkout-box {
       background: var(--gray-dark);
       width: 100%; max-width: 600px;
@@ -1319,6 +1475,19 @@
     <li><a href="#contato">Contato</a></li>
   </ul>
   <div class="nav-actions">
+    <div id="authNavGuest">
+      <button class="auth-btn" onclick="openAuthModal()" type="button">Entrar</button>
+    </div>
+    <div class="user-menu" id="authNavUser" style="display:none">
+      <button class="user-menu-btn" onclick="toggleUserMenu()" type="button" aria-label="Conta">
+        <span>👤</span>
+        <span id="userDisplayName">Conta</span>
+      </button>
+      <div class="user-dropdown" id="userDropdown">
+        <button class="user-dropdown-item" type="button" onclick="openMyOrders()">Meus pedidos</button>
+        <button class="user-dropdown-item" type="button" onclick="handleLogout()">Sair</button>
+      </div>
+    </div>
     <button class="cart-btn" onclick="openCart()" aria-label="Carrinho">
       🛒 <span class="cart-count" id="cartCount">0</span>
     </button>
@@ -1336,6 +1505,7 @@
   <a href="#avaliacoes" onclick="toggleMenu()">Avaliações</a>
   <a href="#sobre" onclick="toggleMenu()">Sobre</a>
   <a href="#contato" onclick="toggleMenu()">Contato</a>
+  <a href="#" id="mobileAuthLink" onclick="toggleMenu(); openAuthModal(); return false;">Entrar</a>
 </div>
 
 <!-- ══════════ HERO ══════════ -->
@@ -1689,6 +1859,39 @@
   </div>
 </div>
 
+<!-- ══════════ AUTH MODAL ══════════ -->
+<div class="auth-modal" id="authModal">
+  <div class="auth-box">
+    <button class="modal-close" onclick="closeAuthModal()" type="button" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--gray-light);font-size:1.4rem;cursor:pointer">✕</button>
+    <div class="auth-title">Minha Conta</div>
+    <p class="auth-subtitle">Entre ou crie sua conta para acompanhar pedidos</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" type="button" data-tab="login" onclick="switchAuthTab('login')">Entrar</button>
+      <button class="auth-tab" type="button" data-tab="register" onclick="switchAuthTab('register')">Criar conta</button>
+    </div>
+    <div class="auth-error" id="authError"></div>
+    <div class="auth-form-panel active" id="authPanelLogin">
+      <form onsubmit="handleLogin(event)">
+        <div class="form-field"><label>E-mail</label><input type="email" id="loginEmail" required placeholder="seu@email.com" autocomplete="email"></div>
+        <div class="form-field"><label>Senha</label><input type="password" id="loginPassword" required placeholder="••••••••" autocomplete="current-password" minlength="6"></div>
+        <button class="checkout-btn auth-submit" type="submit" id="loginSubmitBtn">Entrar</button>
+      </form>
+    </div>
+    <div class="auth-form-panel" id="authPanelRegister">
+      <form onsubmit="handleRegister(event)">
+        <div class="form-field"><label>Nome</label><input type="text" id="registerName" required placeholder="Seu nome" autocomplete="name"></div>
+        <div class="form-field"><label>E-mail</label><input type="email" id="registerEmail" required placeholder="seu@email.com" autocomplete="email"></div>
+        <div class="form-field"><label>Senha</label><input type="password" id="registerPassword" required placeholder="Mínimo 6 caracteres" autocomplete="new-password" minlength="6"></div>
+        <button class="checkout-btn auth-submit" type="submit" id="registerSubmitBtn">Criar conta</button>
+      </form>
+    </div>
+    <div class="auth-divider">ou</div>
+    <button class="auth-google-btn" type="button" onclick="handleGoogleLogin()" id="googleLoginBtn">
+      <span>G</span> Continuar com Google
+    </button>
+  </div>
+</div>
+
 <!-- ══════════ CHECKOUT MODAL ══════════ -->
 <div class="checkout-modal" id="checkoutModal">
   <div class="checkout-box">
@@ -1697,9 +1900,10 @@
     <div class="checkout-section">
       <div class="checkout-section-title">Dados de Entrega</div>
       <div class="contact-form" style="gap:10px">
-        <div class="form-field"><label>Nome Completo</label><input type="text" placeholder="Seu nome"></div>
-        <div class="form-field"><label>CEP</label><input type="text" placeholder="00000-000"></div>
-        <div class="form-field"><label>Endereço</label><input type="text" placeholder="Rua, nº, complemento"></div>
+        <div class="form-field"><label>Nome Completo</label><input type="text" id="checkoutName" placeholder="Seu nome"></div>
+        <div class="form-field"><label>E-mail</label><input type="email" id="checkoutEmail" placeholder="seu@email.com"></div>
+        <div class="form-field"><label>CEP</label><input type="text" id="checkoutCep" placeholder="00000-000"></div>
+        <div class="form-field"><label>Endereço</label><input type="text" id="checkoutAddress" placeholder="Rua, numero, complemento"></div>
       </div>
     </div>
     <div class="checkout-section">
@@ -1712,7 +1916,7 @@
     <div class="checkout-section" style="border:none;margin:0;padding:0">
       <div class="checkout-section-title">Resumo</div>
       <div id="checkoutSummary" style="font-size:0.9rem;color:var(--gray-light);margin-bottom:1.5rem"></div>
-      <button class="checkout-btn" onclick="finalizePurchase()">Confirmar Pedido ✓</button>
+      <button class="checkout-btn" id="checkoutSubmitBtn" onclick="finalizePurchase()">Confirmar Pedido ✓</button>
     </div>
   </div>
 </div>
@@ -1745,14 +1949,15 @@ let cart = [];
 function productCardHTML(p) {
   const badgeMap = { new:'badge-new', sale:'badge-sale', hot:'badge-hot' };
   const badgeLabel = { new:'NOVO', sale:'OFERTA', hot:'🔥 QUENTE' };
+  const pid = JSON.stringify(p.id);
   return `
-    <div class="product-card" onclick="openModal(${p.id})">
+    <div class="product-card" onclick="openModal(${pid})">
       <div class="product-img-wrap">
         <div class="product-badge ${badgeMap[p.badge]||''}">${badgeLabel[p.badge]||''}</div>
         <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
         <div style="width:100%;height:100%;background:var(--black);display:flex;align-items:center;justify-content:center;font-size:6rem; display:none;">${p.emoji}</div>
         <div class="product-overlay">
-          <button class="overlay-btn" onclick="event.stopPropagation();addToCart(${p.id})">+ Carrinho</button>
+          <button class="overlay-btn" onclick="event.stopPropagation();addToCart(${pid})">+ Carrinho</button>
         </div>
       </div>
       <div class="product-info">
@@ -1763,7 +1968,7 @@ function productCardHTML(p) {
             ${p.oldPrice?`<span class="price-old">R$ ${p.oldPrice.toFixed(2).replace('.',',')}</span>`:''}
             <span class="price ${p.oldPrice?'price-new':''}">R$ ${p.price.toFixed(2).replace('.',',')}</span>
           </div>
-          <button class="add-cart-sm" onclick="event.stopPropagation();addToCart(${p.id})">＋</button>
+          <button class="add-cart-sm" onclick="event.stopPropagation();addToCart(${pid})">＋</button>
         </div>
       </div>
     </div>`;
@@ -1772,9 +1977,13 @@ function productCardHTML(p) {
 /* ──────────────────────────────────────────
    INIT GRIDS
 ────────────────────────────────────────── */
-function initGrids() {
+function initGrids(clearFirst = false) {
   const fg = document.getElementById('featuredGrid');
   const cg = document.getElementById('catalogGrid');
+  if (clearFirst) {
+    fg.innerHTML = '';
+    cg.innerHTML = '';
+  }
   PRODUCTS.forEach(p => {
     fg.insertAdjacentHTML('beforeend', productCardHTML(p));
     cg.insertAdjacentHTML('beforeend', productCardHTML(p));
@@ -1788,7 +1997,7 @@ function initGrids() {
 let selectedSize = null;
 
 function openModal(id) {
-  const p = PRODUCTS.find(x => x.id === id);
+  const p = PRODUCTS.find(x => x.id == id);
   if(!p) return;
   selectedSize = p.sizes[1] || p.sizes[0];
 
@@ -1805,7 +2014,7 @@ function openModal(id) {
     <div class="size-grid" id="modalSizes">
       ${p.sizes.map(s=>`<button class="size-btn ${s===selectedSize?'sel':''}" onclick="pickSize(this,'${s}')">${s}</button>`).join('')}
     </div>
-    <button class="add-to-cart" onclick="addToCartFromModal(${p.id})">🛒 Adicionar ao Carrinho</button>
+    <button class="add-to-cart" onclick="addToCartFromModal(${JSON.stringify(p.id)})">🛒 Adicionar ao Carrinho</button>
     <div class="modal-features">
       <div class="feat"><span class="feat-icon">✓</span> Entrega rápida</div>
       <div class="feat"><span class="feat-icon">✓</span> Qualidade premium</div>
@@ -1837,10 +2046,15 @@ function addToCartFromModal(id) {
    CART
 ────────────────────────────────────────── */
 function addToCart(id, size) {
-  const p = PRODUCTS.find(x => x.id === id);
-  if(!p) return;
-  const sz = size || p.sizes[0];
-  const existing = cart.find(c => c.id === id && c.size === sz);
+  const p = PRODUCTS.find(x => x.id == id);
+  if(!p) {
+    console.warn('Produto não encontrado:', id, 'Catálogo:', PRODUCTS.length, 'itens');
+    const t = document.getElementById('toast');
+    if (t) { t.textContent = 'Produto indisponível. Recarregue a página.'; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+    return;
+  }
+  const sz = size || (p.sizes && p.sizes[0]) || 'M';
+  const existing = cart.find(c => c.id == id && c.size === sz);
   if(existing) existing.qty++;
   else cart.push({ ...p, size: sz, qty: 1 });
   updateCartUI();
@@ -1848,7 +2062,7 @@ function addToCart(id, size) {
 }
 
 function removeFromCart(id, size) {
-  cart = cart.filter(c => !(c.id === id && c.size === size));
+  cart = cart.filter(c => !(c.id == id && c.size === size));
   updateCartUI();
 }
 
@@ -1857,6 +2071,7 @@ function updateCartUI() {
   const count = cart.reduce((s, c) => s + c.qty, 0);
   document.getElementById('cartCount').textContent = count;
   document.getElementById('cartTotal').textContent = `R$ ${total.toFixed(2).replace('.',',')}`;
+  if (typeof saveCartToLocalStorage === 'function') saveCartToLocalStorage(cart);
 
   const itemsEl = document.getElementById('cartItems');
   if(cart.length === 0) {
@@ -1872,7 +2087,7 @@ function updateCartUI() {
         <div class="cart-item-meta">${c.team} · Tam. ${c.size} · Qtd: ${c.qty}</div>
         <div class="cart-item-price">R$ ${(c.price*c.qty).toFixed(2).replace('.',',')}</div>
       </div>
-      <button class="cart-item-remove" onclick="removeFromCart(${c.id},'${c.size}')">✕</button>
+      <button class="cart-item-remove" onclick="removeFromCart(${JSON.stringify(c.id)},'${c.size}')">✕</button>
     </div>`).join('');
 }
 
@@ -1893,7 +2108,9 @@ function closeCart() {
    CHECKOUT
 ────────────────────────────────────────── */
 function openCheckout() {
+  if (typeof requireAuthForCheckout === 'function' && !requireAuthForCheckout()) return;
   closeCart();
+  if (typeof prefillCheckoutFromUser === 'function') prefillCheckoutFromUser();
   const total = cart.reduce((s,c) => s+c.price*c.qty, 0);
   const summary = cart.length === 0
     ? '<p>Carrinho vazio.</p>'
@@ -1909,11 +2126,16 @@ function closeCheckout() {
   document.body.style.overflow = '';
 }
 
-function finalizePurchase() {
-  alert('🎉 Pedido confirmado! Em breve entraremos em contato para finalizar a entrega. Obrigado pela compra na R&B Modas!');
-  cart = [];
-  updateCartUI();
-  closeCheckout();
+async function finalizePurchase() {
+  if (typeof submitOrder === 'function') {
+    const ok = await submitOrder();
+    if (!ok) return;
+  } else {
+    alert('🎉 Pedido confirmado! Em breve entraremos em contato para finalizar a entrega. Obrigado pela compra na R&B Modas!');
+    cart = [];
+    updateCartUI();
+    closeCheckout();
+  }
 }
 
 function selPay(el) {
@@ -1953,6 +2175,16 @@ document.getElementById('productModal').addEventListener('click', function(e) {
 });
 document.getElementById('checkoutModal').addEventListener('click', function(e) {
   if(e.target === this) closeCheckout();
+});
+document.getElementById('authModal').addEventListener('click', function(e) {
+  if(e.target === this) closeAuthModal();
+});
+document.addEventListener('click', function(e) {
+  const menu = document.getElementById('userDropdown');
+  const btn = document.querySelector('.user-menu-btn');
+  if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.remove('open');
+  }
 });
 
 /* ──────────────────────────────────────────
@@ -2034,15 +2266,19 @@ initGrids();
 updateCartUI();
 </script>
 
-<!-- Firebase SDKs -->
+<!-- Firebase: config primeiro, depois SDK (módulo) e app -->
+<script src="firebase-config.js"></script>
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
   import { getFirestore, collection, getDocs, addDoc, doc, updateDoc, deleteDoc, query, where, orderBy, limit } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-  
-  // Firebase configuration will be loaded from firebase-config.js
+  import { getFunctions, httpsCallable } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-functions.js';
+  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
   window.firebaseModules = {
     initializeApp,
     getFirestore,
+    getFunctions,
+    getAuth,
     collection,
     getDocs,
     addDoc,
@@ -2052,9 +2288,29 @@ updateCartUI();
     query,
     where,
     orderBy,
-    limit
+    limit,
+    httpsCallable,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
+    updateProfile,
+    GoogleAuthProvider,
+    signInWithPopup
   };
+
+  try {
+    const app = initializeApp(window.firebaseConfig);
+    window.firebaseApp = app;
+    window.firebaseDB = getFirestore(app);
+    window.firebaseAuth = getAuth(app);
+    console.log('Firebase inicializado com sucesso!');
+    window.dispatchEvent(new Event('firebase-ready'));
+  } catch (error) {
+    console.error('Erro ao inicializar Firebase:', error);
+  }
 </script>
-<script src="firebase-config.js"></script>
+<script src="stripe-checkout.js"></script>
+<script src="script.js?v=3"></script>
 </body>
 </html>
