@@ -75,7 +75,7 @@ module.exports = async function handler(req, res) {
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
-      automatic_payment_methods: { enabled: true },
+      payment_method_types: ["card"],
       customer_email: String(customer.email).slice(0, 254),
       line_items: items.map((item) => ({
         price_data: {
