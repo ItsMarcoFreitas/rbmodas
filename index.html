@@ -2108,7 +2108,6 @@ function closeCart() {
    CHECKOUT
 ────────────────────────────────────────── */
 function openCheckout() {
-  if (typeof requireAuthForCheckout === 'function' && !requireAuthForCheckout()) return;
   closeCart();
   if (typeof prefillCheckoutFromUser === 'function') prefillCheckoutFromUser();
   const total = cart.reduce((s,c) => s+c.price*c.qty, 0);
