@@ -1552,7 +1552,7 @@
     <span class="dot">•</span>
     <span>💳 Parcelamos em até 12x</span>
     <span class="dot">•</span>
-    <span>📦 Entrega para todo o Brasil</span>
+    <span>📦 Entrega nas regiões de Recife</span>
   </div>
 </div>
 
@@ -1902,6 +1902,7 @@
       <div class="contact-form" style="gap:10px">
         <div class="form-field"><label>Nome Completo</label><input type="text" id="checkoutName" placeholder="Seu nome"></div>
         <div class="form-field"><label>E-mail</label><input type="email" id="checkoutEmail" placeholder="seu@email.com"></div>
+        <div class="form-field"><label>Celular</label><input type="tel" id="checkoutPhone" placeholder="(00) 00000-0000"></div>
         <div class="form-field"><label>CEP</label><input type="text" id="checkoutCep" placeholder="00000-000"></div>
         <div class="form-field"><label>Endereço</label><input type="text" id="checkoutAddress" placeholder="Rua, numero, complemento"></div>
       </div>
@@ -1929,12 +1930,14 @@ const PRODUCTS = [
   { id:1, team:'Tottenham Hotspur', league:'Premier League', name:'Camisa Titular 2024/25', price:99.90, oldPrice:149.90, badge:'sale', image:'camisas/camisa1.png', sizes:['P','M','G','GG'], desc:'Camisa oficial do Flamengo. Tecido DriFit de alta performance, escudo bordado e cores vibrantes. Perfeita para os dias de jogo!' },
   { id:2, team:'Portugal', league:'Seleção', name:'Camisa Home 2024/25', price:99.90, badge:'new', image:'camisas/camisa2.png', sizes:['PP','P','M','G','GG','XGG'], desc:'A camisa mais vencedora do mundo. Confeccionada com tecnologia de ponta, proporciona conforto e estilo incomparáveis.' },
   { id:3, team:'Wolfsburg', league:'Bundesliga', name:'Camisa Titular Azul', price:99.90, badge:'new', image:'camisas/camisa3.png', sizes:['P','M','G','GG'], desc:'Vista as cores do atual campeão da Premier League. Material leve e respirável para máximo desempenho.' },
-  { id:4, team:'Inter de Milão', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/camisa4.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
-  { id:5, team:'Agentina com detalhes dourados', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/argentinadourada.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
-  { id:6, team:'Camisa Bahia 2023', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/bahia2023.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
-  { id:7, team:'Camisa do Barcelona 2023', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/fcbarcelona2023.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
-  { id:8, team:'Camisa da Argetina Azul', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/argentinaazul.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
-  { id:8, team:'Camisa do Flamengo', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', emoji:'⚫⚪', image:'camisas/camisaflamengo.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
+  { id:4, team:'Inter de Milão', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale',  image:'camisas/camisa4.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
+  { id:5, team:'Agentina com detalhes dourados', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale',  image:'camisas/argentinadourada.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
+  { id:6, team:'Camisa Bahia 2023', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', image:'camisas/bahia2023.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
+  { id:7, team:'Camisa do Barcelona 2023', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale',  image:'camisas/fcbarcelona2023.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
+  { id:8, team:'Camisa da Argetina Azul', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale',  image:'camisas/argentinaazul.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
+  { id:9, team:'Camisa do Flamengo', league:'Serie A', name:'Camisa Home 2024/25', price:99.90, oldPrice:149.90, badge:'sale', image:'camisas/camisaflamengo.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
+  { id:10, team:'Camisa da Seleção Colombiana', league:'Seleção', name: "Camisa Seleção", price:99.90, oldPrice:149.90, badge:'sale',image:'camisas/camisacolombia.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' },
+  { id:11, team:'Camisa Colombia Dourada', league:'Seleção', name:'Camisa Seleção', price:99.90, oldPrice:149.90, badge:'sale', image:'camisas/camisacolombia2.png', sizes:['P','M','G','GG','XGG'], desc:'A camisa do Timão. Fiel reprodução da camisa oficial com qualidade premium e conforto garantido.' }
 ];
 
 
@@ -2310,6 +2313,5 @@ updateCartUI();
   }
 </script>
 <script src="script.js?v=3"></script>
-<script src="stripe-checkout.js?v=2"></script>
 </body>
 </html>

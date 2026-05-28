@@ -220,8 +220,10 @@ function prefillCheckoutFromUser() {
   if (!currentUser) return;
   const nameEl = document.getElementById('checkoutName');
   const emailEl = document.getElementById('checkoutEmail');
+  const phoneEl = document.getElementById('checkoutPhone');
   if (nameEl && !nameEl.value) nameEl.value = currentUser.displayName || '';
   if (emailEl && !emailEl.value) emailEl.value = currentUser.email || '';
+  if (phoneEl && !phoneEl.value) phoneEl.value = currentUser.phoneNumber || '';
 }
 
 async function submitOrder() {
@@ -231,37 +233,76 @@ async function submitOrder() {
   }
   const name = document.getElementById('checkoutName')?.value.trim();
   const email = document.getElementById('checkoutEmail')?.value.trim();
+  const phone = document.getElementById('checkoutPhone')?.value.trim();
   const cep = document.getElementById('checkoutCep')?.value.trim();
   const address = document.getElementById('checkoutAddress')?.value.trim();
 
-  if (!name || !email || !cep || !address) {
+  if (!name || !email || !phone || !cep || !address) {
     alert('Preencha todos os dados de entrega.');
     return false;
   }
 
   const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+
+  // Criar mensagem para WhatsApp
+  let message = `*NOVO PEDIDO - R&B MODAS*\n\n`;
+  message += `*Dados do Cliente:*\n`;
+  message += `👤 Nome: ${name}\n`;
+  message += `📧 Email: ${email}\n`;
+  message += `� Celular: ${phone}\n`;
+  message += `� CEP: ${cep}\n`;
+  message += `🏠 Endereço: ${address}\n\n`;
+  message += `*Itens do Pedido:*\n`;
+
+  cart.forEach((item, index) => {
+    message += `${index + 1}. ${item.name}\n`;
+    message += `   Time: ${item.team}\n`;
+    message += `   Tamanho: ${item.size}\n`;
+    message += `   Qtd: ${item.qty}\n`;
+    message += `   Preço: R$ ${item.price.toFixed(2).replace('.', ',')}\n\n`;
+  });
+
+  message += `*Total: R$ ${total.toFixed(2).replace('.', ',')}*`;
+
+  // Número do WhatsApp (configure no .env ou altere aqui)
+  const whatsappPhone = '83999204054'; // Substitua pelo número real
+
+  // Codificar mensagem para URL
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappUrl = `https://wa.me/${whatsappPhone}?text=${encodedMessage}`;
+
+  // Salvar no Firebase se disponível
   const orderData = {
-    customer: { name, email, cep, address },
+    customer: { name, email, phone, cep, address },
     items: cart.map((c) => ({ id: c.id, name: c.name, team: c.team, size: c.size, qty: c.qty, price: c.price })),
     total,
-    userId: currentUser?.uid || null
+    userId: currentUser?.uid || null,
+    sentToWhatsApp: true
   };
 
   try {
     if (firebaseReady && typeof createOrder === 'function') {
-      await createOrder(orderData);
+      const orderId = await createOrder(orderData);
+      console.log('Pedido salvo no Firebase com ID:', orderId);
+    } else {
+      console.warn('Firebase não está pronto ou createOrder não disponível');
     }
-    alert('🎉 Pedido confirmado! Em breve entraremos em contato. Obrigado pela compra na R&B Modas!');
-    cart = [];
-    saveCartToLocalStorage(cart);
-    if (typeof updateCartUI === 'function') updateCartUI();
-    closeCheckout();
-    return true;
   } catch (err) {
-    console.error(err);
-    alert('Erro ao salvar o pedido. Tente novamente.');
-    return false;
+    console.error('Erro ao salvar no Firebase:', err);
+    alert('Aviso: O pedido foi enviado para WhatsApp, mas houve um erro ao salvar no histórico. Entre em contato com o suporte se precisar ver seus pedidos anteriores.');
+    // Continuar mesmo se falhar o Firebase
   }
+
+  // Limpar carrinho e abrir WhatsApp
+  cart = [];
+  saveCartToLocalStorage(cart);
+  if (typeof updateCartUI === 'function') updateCartUI();
+  closeCheckout();
+
+  // Abrir WhatsApp em nova aba
+  window.open(whatsappUrl, '_blank');
+
+  return true;
 }
 
 async function openMyOrders() {
@@ -270,6 +311,12 @@ async function openMyOrders() {
     openAuthModal('login');
     return;
   }
+  
+  if (!firebaseReady) {
+    alert('Firebase não está pronto. Tente novamente em alguns segundos.');
+    return;
+  }
+  
   const orders = await getOrdersByEmail(currentUser.email);
   if (!orders.length) {
     alert('Você ainda não tem pedidos.');

@@ -1,6 +1,6 @@
 {
   "name": "rbmodas-site",
-  "description": "R&B Modas com checkout Stripe em backend externo",
+  "description": "R&B Modas - Loja de camisas de futebol",
   "scripts": {
     "dev": "vercel dev",
     "deploy": "vercel --prod"
@@ -8,8 +8,6 @@
   "engines": {
     "node": "20.x"
   },
-  "dependencies": {
-    "stripe": "^14.0.0"
-  },
+  "dependencies": {},
   "private": true
 }
