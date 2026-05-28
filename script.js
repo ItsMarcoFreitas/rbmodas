@@ -247,11 +247,11 @@ async function submitOrder() {
   // Criar mensagem para WhatsApp
   let message = `*NOVO PEDIDO - R&B MODAS*\n\n`;
   message += `*Dados do Cliente:*\n`;
-  message += `👤 Nome: ${name}\n`;
-  message += `📧 Email: ${email}\n`;
-  message += `� Celular: ${phone}\n`;
-  message += `� CEP: ${cep}\n`;
-  message += `🏠 Endereço: ${address}\n\n`;
+  message += ` Nome: ${name}\n`;
+  message += ` Email: ${email}\n`;
+  message += ` Celular: ${phone}\n`;
+  message += ` CEP: ${cep}\n`;
+  message += ` Endereço: ${address}\n\n`;
   message += `*Itens do Pedido:*\n`;
 
   cart.forEach((item, index) => {
